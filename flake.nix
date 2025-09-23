@@ -21,6 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+	nix-auth = {
+	  url = "github:numtide/nix-auth";
+	  inputs.nixpkgs.follows = "nixpkgs";
+	};
+
     # COMING SOON...
     #nixvim = {
     #  url = "github:nix-community/nixvim";
