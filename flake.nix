@@ -21,16 +21,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-	nix-auth = {
-	  url = "github:numtide/nix-auth";
-	  inputs.nixpkgs.follows = "nixpkgs";
-	};
+    nix-auth = {
+	    url = "github:numtide/nix-auth";
+	    inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    # COMING SOON...
-    #nixvim = {
-    #  url = "github:nix-community/nixvim";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs: let

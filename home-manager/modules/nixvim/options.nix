@@ -3,8 +3,13 @@
     enable = true;
     opts = {
       number = true;
-      shiftwidth = 2;
-      completeopt = [ "menu" "menuone" "noselect" ];
+      relativenumber = true;
+      shiftwidth = 4;
+      completeopt = [
+        "menu"
+        "menuone"
+        "noselect"
+      ];
       termguicolors = true;
     };
 

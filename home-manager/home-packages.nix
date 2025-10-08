@@ -6,6 +6,7 @@
 
     # Desktop apps
     # anki
+    arduino-cli
     blender
     brave
     docker
@@ -36,9 +37,10 @@
     grimblast
     htop
     hyprpicker
-    ntfs3g
+    linux-wifi-hotspot
     mediainfo
     microfetch
+    ntfs3g
     playerctl
     ripgrep
     showmethekey
@@ -58,6 +60,7 @@
     zoxide
 
     # Coding stuff
+    # neovim
     gcc
     gdb
     python314
