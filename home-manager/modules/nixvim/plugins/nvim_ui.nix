@@ -19,7 +19,7 @@
 
         change_to_dir = false;
         use_unicode = true;
-        lists = [{ type = "dir"; }];
+        lists = [ { type = "dir"; } ];
         files_number = 30;
         autoExpandWidth = true;
         skiplist = [
@@ -37,35 +37,35 @@
       };
     };
 
-    neo-tree = {
-      enable = true;
-      enableGitStatus = true;
-      enableModifiedMarkers = true;
-      enableRefreshOnWrite = true;
-      enableDiagnostics = true;
-      closeIfLastWindow = true;
-      buffers = {
-        bindToCwd = false;
-        followCurrentFile = {
-          enabled = true;
-        };
-      };
-      filesystem = {
-        filteredItems = {
-          hideDotfiles = false;
-          alwaysShow = [
-            "node_modules"
-            "dist"
-            "'[A-Z]*'"
-          ];
-          visible = true;
-        };
-        followCurrentFile = {
-          enabled = true;
-          leaveDirsOpen = true;
-        };
-      };
-    };
+    # neo-tree = {
+    #   enable = true;
+    #   enableGitStatus = true;
+    #   enableModifiedMarkers = true;
+    #   enableRefreshOnWrite = true;
+    #   enableDiagnostics = true;
+    #   closeIfLastWindow = true;
+    #   buffers = {
+    #     bindToCwd = false;
+    #     followCurrentFile = {
+    #       enabled = true;
+    #     };
+    #   };
+    #   filesystem = {
+    #     filteredItems = {
+    #       hideDotfiles = false;
+    #       alwaysShow = [
+    #         "node_modules"
+    #         "dist"
+    #         "'[A-Z]*'"
+    #       ];
+    #       visible = true;
+    #     };
+    #     followCurrentFile = {
+    #       enabled = true;
+    #       leaveDirsOpen = true;
+    #     };
+    #   };
+    # };
 
     undotree = {
       enable = true;

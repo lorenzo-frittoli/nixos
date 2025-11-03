@@ -12,6 +12,7 @@
     ./net.nix
     ./nh.nix
     ./nix.nix
+    ./steam.nix
     ./timezone.nix
     ./user.nix
   ];

@@ -5,7 +5,7 @@
     # Packages in each category are sorted alphabetically
 
     # Desktop apps
-    # anki
+    anki
     arduino-cli
     blender
     brave

@@ -1,6 +1,6 @@
 {
   description = "System configuration based on https://github.com/Andrey0189/nixos-config-reborn";
-  
+
   # REMEMBER TO UPDATE ALL VERSIONS
   # current version = 25.05;
   inputs = {
@@ -22,8 +22,8 @@
     };
 
     nix-auth = {
-	    url = "github:numtide/nix-auth";
-	    inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:numtide/nix-auth";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvim = {
@@ -32,43 +32,66 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: let
-    system = "x86_64-linux";
-    homeStateVersion = "25.05";
-    user = "frittata";
-    hosts = [
-      { hostname = "calcolatore"; stateVersion = homeStateVersion; }
-    ];
-
-    makeSystem = { hostname, stateVersion }: nixpkgs.lib.nixosSystem {
-      system = system;
-      specialArgs = {
-        inherit inputs stateVersion hostname user;
-      };
-
-      modules = [
-        ./hosts/${hostname}/configuration.nix
-        inputs.disko.nixosModules.disko
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
+      homeStateVersion = "25.05";
+      user = "frittata";
+      hosts = [
+        {
+          hostname = "calcolatore";
+          stateVersion = homeStateVersion;
+        }
       ];
-    };
 
-  in {
-    nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
-      configs // {
-        "${host.hostname}" = makeSystem {
-          inherit (host) hostname stateVersion;
+      makeSystem =
+        {
+          hostname,
+          stateVersion,
+        }:
+        nixpkgs.lib.nixosSystem {
+          system = system;
+          specialArgs = {
+            inherit
+              inputs
+              stateVersion
+              hostname
+              user
+              ;
+          };
+
+          modules = [
+            ./hosts/${hostname}/configuration.nix
+            inputs.disko.nixosModules.disko
+          ];
         };
-      }) {} hosts;
+    in
+    {
+      nixosConfigurations = nixpkgs.lib.foldl' (
+        configs: host:
+        configs
+        // {
+          "${host.hostname}" = makeSystem {
+            inherit (host) hostname stateVersion;
+          };
+        }
+      ) { } hosts;
 
-    homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.${system};
-      extraSpecialArgs = {
-        inherit inputs homeStateVersion user;
+      homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {
+          inherit inputs homeStateVersion user;
+        };
+
+        modules = [
+          ./home-manager/home.nix
+        ];
       };
-
-      modules = [
-        ./home-manager/home.nix
-      ];
     };
-  };
 }
