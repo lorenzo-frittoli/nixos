@@ -67,6 +67,17 @@
           };
 
           modules = [
+            (
+              {
+                config,
+                pkgs,
+                ...
+              }:
+              {
+                nixpkgs.config.allowUnfree = true;
+              }
+            )
+
             ./hosts/${hostname}/configuration.nix
             inputs.disko.nixosModules.disko
           ];

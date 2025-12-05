@@ -18,34 +18,34 @@
           checkstyle.enable = true;
         };
         formatting = {
-          alejandra.enable = true;
-          stylua.enable = true;
-          shfmt.enable = true;
-          nixpkgs_fmt.enable = true;
-          prettier = {
-            enable = true;
-            disableTsServerFormatter = true;
-            settings = {
-              extra_filetypes = [ "vue" "json" ];
-              insert_final_newline = true;
-            };
-          };
-          black = {
-            enable = true;
-            settings = ''
-              {
-                extra_args = { "--fast" },
-              }
-            '';
-          };
-          xmllint = {
-            enable = true;
-            settings = {
-              extra_filetypes = [
-                "svg"
-              ];
-            };
-          };
+          # alejandra.enable = true;
+          # stylua.enable = true;
+          # shfmt.enable = true;
+          # nixpkgs_fmt.enable = true;
+          # prettier = {
+          #   enable = true;
+          #   disableTsServerFormatter = true;
+          #   settings = {
+          #     extra_filetypes = [ "vue" "json" ];
+          #     insert_final_newline = true;
+          #   };
+          # };
+          # black = {
+          #   enable = true;
+          #   settings = ''
+          #     {
+          #       extra_args = { "--fast" },
+          #     }
+          #   '';
+          # };
+          # xmllint = {
+          #   enable = true;
+          #   settings = {
+          #     extra_filetypes = [
+          #       "svg"
+          #     ];
+          #   };
+          # };
         };
         completion = {
           luasnip.enable = true;

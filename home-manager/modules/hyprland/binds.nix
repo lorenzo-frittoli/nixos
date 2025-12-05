@@ -21,10 +21,10 @@
   wayland.windowManager.hyprland.settings = {
     bind = [
       # Kill wayland components
-      "$mainMod SHIFT,      Q, exit,"
-      "$mainMod,            B, exec, pkill -SIGUSR2 waybar"
-      "$mainMod SHIFT,      B, exec, pkill -SIGUSR1 waybar"
-      "$mainMod SHIFT CTRL, O, exec, hyprlock --immediate"
+      "$mainMod SHIFT, Q, exit,"
+      "$mainMod,       B, exec, pkill -SIGUSR2 waybar"
+      "$mainMod SHIFT, B, exec, pkill -SIGUSR1 waybar"
+      "$mainMod,       L, exec, hyprlock --immediate"
 
       # Open programs
       "$mainMod,       E, exec, $menu --show drun"

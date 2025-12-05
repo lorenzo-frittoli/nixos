@@ -1,7 +1,9 @@
-{ lib
-, config
-, ...
-}: {
+{
+  lib,
+  config,
+  ...
+}:
+{
   programs.nixvim = {
     globals.mapleader = " ";
     keymaps =
@@ -109,23 +111,19 @@
           "action"
         ];
 
-        toSet = values:
+        toSet =
+          values:
           builtins.listToAttrs (
-            lib.lists.zipListsWith
-              (key: value: {
-                name = key;
-                inherit value;
-              })
-              keys
-              values
+            lib.lists.zipListsWith (key: value: {
+              name = key;
+              inherit value;
+            }) keys values
           );
 
         keymaps = map toSet keymaps_raw;
       in
-      config.lib.nixvim.keymaps.mkKeymaps
-        {
-          options.silent = true;
-        }
-        keymaps;
+      config.lib.nixvim.keymaps.mkKeymaps {
+        options.silent = true;
+      } keymaps;
   };
 }

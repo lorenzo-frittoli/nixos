@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
@@ -13,6 +14,7 @@
     freecad-wayland
     gimp3
     imv
+    itch
     kicad
     libreoffice-qt6
     mpv
@@ -61,9 +63,12 @@
 
     # Coding stuff
     # neovim
+    cargo
     gcc
     gdb
     python314
+    rust-analyzer
+    rustc
 
     # WM stuff
     libsForQt5.xwaylandvideobridge
