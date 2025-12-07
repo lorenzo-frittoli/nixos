@@ -6,12 +6,13 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
+      os-build = "nh os build && exec zsh";
       os-test = "nh os test && exec zsh";
       os-switch = "nh os switch && exec zsh";
       os-update = "nh os switch --update && exec zsh";
       os-clean = "nh clean all --keep 3";
 
-      hm-test = "nh home test && exec zsh";
+      hm-build = "nh home build && exec zsh";
       hm-switch = "nh home switch && exec zsh";
       hm-update = "nh home switch --update && exec zsh";
       hm-clean = "nh clean user --keep 3";

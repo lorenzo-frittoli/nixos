@@ -70,9 +70,5 @@
         terraform = [ "tflint" ];
       };
     };
-
-    tailwind-tools = {
-      enable = true;
-    };
   };
 }

@@ -1,10 +1,11 @@
 {
   description = "System configuration based on https://github.com/Andrey0189/nixos-config-reborn";
 
-  # REMEMBER TO UPDATE ALL VERSIONS
-  # current version = 25.05;
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    # NOTE: nixos-25.11 is not out yet (as of late 2024/early 2025).
+    # Make sure this branch actually exists, otherwise use nixos-24.11 or nixos-unstable.
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     disko = {
       url = "github:nix-community/disko";
@@ -12,12 +13,12 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
-      url = "github:danth/stylix/release-25.11";
+      url = "github:danth/stylix/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -28,7 +29,6 @@
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      # inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -36,6 +36,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       ...
     }@inputs:
@@ -49,6 +50,15 @@
           stateVersion = homeStateVersion;
         }
       ];
+
+      # --- 1. DEFINE THE OVERLAY ---
+      # This creates a namespace "pkgs.unstable" that holds the unstable packages
+      overlay-unstable = final: prev: {
+        unstable = import nixpkgs-unstable {
+          system = system;
+          config.allowUnfree = true;
+        };
+      };
 
       makeSystem =
         {
@@ -74,6 +84,9 @@
                 ...
               }:
               {
+                # --- 2. REGISTER THE OVERLAY HERE ---
+                nixpkgs.overlays = [ overlay-unstable ];
+
                 nixpkgs.config.allowUnfree = true;
               }
             )
@@ -101,6 +114,13 @@
         };
 
         modules = [
+          # If you want unstable in Standalone Home-Manager, you need to add the overlay here too:
+          (
+            { config, pkgs, ... }:
+            {
+              nixpkgs.overlays = [ overlay-unstable ];
+            }
+          )
           ./home-manager/home.nix
         ];
       };

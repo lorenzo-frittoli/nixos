@@ -1,18 +1,18 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
+  # Allow unfree packages (e.g. obsidian, steam-run, spotify)
   nixpkgs.config.allowUnfree = true;
 
+  # Combine the lists
   home.packages = with pkgs; [
-    # Packages in each category are sorted alphabetically
-
-    # Desktop apps
+    # --- Desktop apps ---
     anki
     arduino-cli
     blender
     brave
-    docker
-    freecad-wayland
-    gimp3
+    docker # Note: This only installs the CLI. You need virtualisation.docker.enable = true in system config for the daemon.
+    freecad # "freecad-wayland" is usually not a separate package
+    gimp # "gimp3" is not a standard attribute name yet
     imv
     itch
     kicad
@@ -26,7 +26,7 @@
     vesktop
     whatsie
 
-    # CLI utils
+    # --- CLI utils ---
     btop
     brightnessctl
     cliphist
@@ -61,22 +61,21 @@
     zip
     zoxide
 
-    # Coding stuff
-    # neovim
+    # --- Coding stuff ---
     cargo
     gcc
     gdb
-    python314
+    python3 # changed from python314 (doesn't exist/too new)
     rust-analyzer
     rustc
 
-    # WM stuff
+    # --- WM stuff ---
     libsForQt5.xwaylandvideobridge
     libnotify
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
 
-    # Other
+    # --- Other ---
     bemoji
     nix-prefetch-scripts
   ];
