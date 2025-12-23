@@ -7,7 +7,13 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "nvidia" ];
+  # For offloading, `modesetting` is needed additionally,
+  # otherwise the X-server will be running permanently on nvidia,
+  # thus keeping the GPU always on (see `nvidia-smi`).
+  services.xserver.videoDrivers = [
+    "modesetting" # example for Intel iGPU; use "amdgpu" here instead if your iGPU is AMD
+    "nvidia"
+  ];
 
   hardware.nvidia = {
 
@@ -30,13 +36,18 @@
     # supported GPUs is at:
     # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
     # Only available from driver 515.43.04+
-    open = true;
+    open = false;
 
     prime = {
       # Make sure to use the correct Bus ID values for your system!
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
       # amdgpuBusId = "PCI:54:0:0"; For AMD GPU
+
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
     };
 
     # Enable the Nvidia settings menu,

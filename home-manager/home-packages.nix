@@ -14,13 +14,16 @@
     freecad # "freecad-wayland" is usually not a separate package
     gimp # "gimp3" is not a standard attribute name yet
     imv
-    itch
     kicad
     libreoffice-qt6
     mpv
+    networkmanagerapplet
+    networkmanager
+    kdePackages.plasma-nm
     obsidian
     openscad
     pavucontrol
+    prismlauncher
     signal-desktop
     telegram-desktop
     vesktop
@@ -78,5 +81,6 @@
     # --- Other ---
     bemoji
     nix-prefetch-scripts
+    xterm
   ];
 }

@@ -1,5 +1,6 @@
-{ pkgs, inputs, ... }: {
-  imports = [ inputs.stylix.homeModules.stylix ];
+{ pkgs, inputs, ... }:
+{
+  imports = [ inputs.stylix.homeManagerModules.stylix ];
 
   home.packages = with pkgs; [
     dejavu_fonts
@@ -12,7 +13,6 @@
     powerline-fonts
     powerline-symbols
   ];
-
 
   stylix = {
     enable = true;

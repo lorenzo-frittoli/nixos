@@ -1,4 +1,5 @@
-{ homeStateVersion, user, ... }: {
+{ homeStateVersion, user, ... }:
+{
   imports = [
     ./modules
     ./home-packages.nix
@@ -8,5 +9,9 @@
     username = user;
     homeDirectory = "/home/${user}";
     stateVersion = homeStateVersion;
+    sessionVariables = {
+      # Variable Name = "Value"
+      FLAKE = "$NH_FLAKE"; # Fix nh env variables
+    };
   };
 }

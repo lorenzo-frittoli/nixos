@@ -1,3 +1,7 @@
+{ pkgs, ... }:
+let
+  cppDriverPath = "${pkgs.gcc.cc}/bin/g++";
+in
 {
   programs.nixvim.plugins = {
     lsp = {
@@ -18,6 +22,18 @@
           installRustc = true;
           installCargo = true;
           installRustfmt = true;
+        };
+        clangd = {
+          enable = true;
+          # 2. Crucially, add the command-line arguments for clangd
+          extraOptions = {
+            cmd = [
+              "clangd"
+              # Tell clangd to ask the g++ driver for all necessary include paths (-isystem)
+              "--query-driver=${cppDriverPath}"
+              "--background-index"
+            ];
+          };
         };
       };
     };

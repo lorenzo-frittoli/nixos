@@ -12,7 +12,8 @@
     ./net.nix
     ./nh.nix
     ./nix.nix
-	# ./nvidia.nix
+    ./nvidia.nix
+    # ./ssh.nix
     ./steam.nix
     ./timezone.nix
     ./user.nix

@@ -2,8 +2,12 @@
 {
   programs.zsh = {
     enable = true;
+
     enableCompletion = true;
     syntaxHighlighting.enable = true;
+
+    history.size = 10000;
+    history.path = "${config.xdg.dataHome}/zsh/history";
 
     shellAliases = {
       os-build = "nh os build && exec zsh";
@@ -35,6 +39,14 @@
       tsl = "trash list";
       tsr = "trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trash restore --match=exact --force";
 
+      nvidia-offload = ''
+        	export __NV_PRIME_RENDER_OFFLOAD=1
+        	export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+        	export __GLX_VENDOR_LIBRARY_NAME=nvidia
+        	export __VK_LAYER_NV_optimus=NVIDIA_only
+        	exec "$@"
+      '';
+
       hotspot = ''
         # Get eth and wifi interface from nmcli
         ETHERNET=$(nmcli dev | sed '/ethernet/!d' | fzf -e | awk '{print $1;}')
@@ -49,10 +61,13 @@
       '';
     };
 
-    history.size = 10000;
-    history.path = "${config.xdg.dataHome}/zsh/history";
+    initExtra = ''
+      # Ctrl+delete
+      bindkey '^H' backward-delete-word   
 
-    initContent = ''
+      # Set env var
+      export FLAKE="/home/frittata/nixos/"
+
       # Start UWSM
       if uwsm check may-start > /dev/null && uwsm select; then
         exec systemd-cat -t uwsm_start uwsm start default
