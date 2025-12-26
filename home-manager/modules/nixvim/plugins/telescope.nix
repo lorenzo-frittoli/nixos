@@ -20,16 +20,13 @@
       keymaps = {
         # Find files using Telescope command-line sugar.
         "<leader>ff" = "find_files";
-        "<leader>fg" = "live_grep";
-        "<leader>b" = "buffers";
+        "<leader>fw" = "live_grep";
         "<leader>fh" = "help_tags";
         "<leader>fd" = "diagnostics";
-        "<leader>mf" = "media_files";
-
-        # FZF like bindings
-        "<C-p>" = "git_files";
-        "<leader>p" = "oldfiles";
-        "<C-f>" = "live_grep";
+        "<leader>fm" = "media_files";
+        "<leader>fg" = "git_files";
+        "<leader>fo" = "oldfiles";
+        # "<leader>b" = "buffers";
       };
       settings.defaults = {
         file_ignore_patterns = [

@@ -24,7 +24,7 @@
     openscad
     pavucontrol
     prismlauncher
-    signal-desktop
+    unstable.signal-desktop
     telegram-desktop
     vesktop
     whatsie
