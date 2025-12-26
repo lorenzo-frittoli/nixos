@@ -3,52 +3,59 @@
     disk = {
       main = {
         type = "disk";
-        device = "/dev/nvme0n1";
+        # ⚠️ PASTE YOUR ID HERE ⚠️
+        # This prevents accidental formatting if drive letters change (e.g. sda -> sdb)
+        device = "/dev/disk/by-id/CHANGE_ME_TO_YOUR_SPECIFIC_ID"; 
+        
         content = {
           type = "gpt";
           partitions = {
-            # 1. ESP (EFI System Partition)
+            # 1. ESP (Boot Partition)
             ESP = {
               priority = 1;
               size = "512M";
               type = "EF00";
+              label = "BOOT"; # GPT Label
               content = {
                 type = "filesystem";
                 format = "vfat";
+                # Sets the Filesystem Label to 'NIXBOOT' for easy identification
+                extraArgs = [ "-n" "NIXBOOT" ]; 
                 mountpoint = "/boot";
                 mountOptions = [ "umask=0077" ];
               };
             };
-            # 2. Swap (Dedicated partition is fine, reliable for hibernation)
+            
+            # 2. Swap 
             swap = {
               size = "8G";
+              label = "SWAP"; # GPT Label
               content = {
                 type = "swap";
-                resumeDevice = true; # Tells NixOS to use this for hibernation
+                # Sets the Swap Label to 'NIXSWAP'
+                extraArgs = [ "-L" "NIXSWAP" ]; 
+                resumeDevice = true;
               };
             };
-            # 3. Root (Btrfs with Subvolumes)
+            
+            # 3. Root (Btrfs)
             root = {
               size = "100%";
+              label = "ROOT"; # GPT Label
               content = {
                 type = "btrfs";
-                extraArgs = [ "-f" ]; # Force override existing partition
+                # Sets the Filesystem Label to 'NIXROOT'
+                extraArgs = [ "-f" "-L" "NIXROOT" ]; 
                 
-                # Global mount options for the filesystem
-                # zstd is the best balance of speed/compression
-                # noatime extends SSD life and improves performance
                 subvolumes = {
-                  # Mount the root filesystem
                   "@" = {
                     mountpoint = "/";
                     mountOptions = [ "compress=zstd" "noatime" ];
                   };
-                  # Mount home separately so you can snapshot OS without reverting home
                   "@home" = {
                     mountpoint = "/home";
                     mountOptions = [ "compress=zstd" "noatime" ];
                   };
-                  # Mount /nix separately (optional but common) to exclude it from root snapshots
                   "@nix" = {
                     mountpoint = "/nix";
                     mountOptions = [ "compress=zstd" "noatime" ];
