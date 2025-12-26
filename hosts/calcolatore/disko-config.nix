@@ -5,7 +5,7 @@
         type = "disk";
         # ⚠️ PASTE YOUR ID HERE ⚠️
         # This prevents accidental formatting if drive letters change (e.g. sda -> sdb)
-        device = "/dev/disk/by-id/CHANGE_ME_TO_YOUR_SPECIFIC_ID"; 
+        device = "/dev/disk/by-id/nvme-BC511_NVMe_SK_hynix_512GB_CY06T000310606K23"; 
         
         content = {
           type = "gpt";
