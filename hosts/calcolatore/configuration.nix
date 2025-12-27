@@ -1,5 +1,4 @@
 { pkgs, stateVersion, hostname, ... }:
-
 {
   imports = [
     ./hardware-configuration.nix
@@ -14,4 +13,3 @@
 
   system.stateVersion = stateVersion;
 }
-

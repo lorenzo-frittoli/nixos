@@ -8,5 +8,9 @@
     username = user;
     homeDirectory = "/home/${user}";
     stateVersion = homeStateVersion;
+    sessionVariables = {
+      # Variable Name = "Value"
+      FLAKE = "$NH_FLAKE"; # Fix nh env variables
+    };
   };
 }

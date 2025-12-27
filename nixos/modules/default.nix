@@ -12,7 +12,11 @@
     ./net.nix
     ./nh.nix
     ./nix.nix
+    ./nvidia.nix
+    # ./ssh.nix
+    ./steam.nix
     ./timezone.nix
     ./user.nix
+    ./virt-manager.nix
   ];
 }

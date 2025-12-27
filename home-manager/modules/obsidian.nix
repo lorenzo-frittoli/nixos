@@ -2,8 +2,7 @@
 let
   gitSyncObsidian = pkgs.writeScriptBin "git-sync-obsidian" ''
     #!/bin/sh
-
-    VAULT_DIR="$HOME/para"
+    VAULT_DIR="$HOME/obsidian"
     cd $VAULT_DIR || exit 1
     git add .
     git commit -m "$(date '+%Y-%m-%d %H:%M:%S')" || exit 0
