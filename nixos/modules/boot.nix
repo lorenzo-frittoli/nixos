@@ -5,6 +5,7 @@
       enable = true;
       device = "nodev"; # Required for EFI
       efiSupport = true;
+	  useOSProber = true;
       # enableCryptodisk = true; # Uncomment if using LUKS on root
     };
     
