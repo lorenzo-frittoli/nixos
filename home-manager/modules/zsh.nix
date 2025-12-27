@@ -61,7 +61,7 @@
       '';
     };
 
-    initExtra = ''
+    initContent = ''
       # Ctrl+delete
       bindkey '^H' backward-delete-word   
 
