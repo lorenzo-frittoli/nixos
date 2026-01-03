@@ -4,6 +4,5 @@
     # packages required by all systems
     git
     wget
-    vim
   ];
 }

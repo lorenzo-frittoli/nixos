@@ -5,7 +5,7 @@
     ./git.nix
     ./hyprland
     ./kitty.nix
-    ./nixvim
+    ./nixvim/default.nix
     ./obsidian.nix
     ./starship.nix
     ./stylix.nix
