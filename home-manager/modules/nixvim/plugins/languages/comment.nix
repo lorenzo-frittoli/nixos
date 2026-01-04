@@ -3,8 +3,8 @@
     comment = {
       enable = true;
       settings = {
-        opleader.line = "<C-b>";
-        toggler.line = "<C-b>";
+        opleader.line = "<C-/>";
+        toggler.line = "<C-/>";
       };
     };
 
@@ -14,11 +14,11 @@
         keywords = {
           TODO = {
             color = "warning";
-	    icon = " ";
+            icon = " ";
           };
         };
         highlight = {
-          pattern = ".*<(KEYWORDS)\\s*";
+          comments_only = true;
         };
       };
     };
