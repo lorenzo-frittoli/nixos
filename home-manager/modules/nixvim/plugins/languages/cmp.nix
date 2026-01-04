@@ -5,7 +5,15 @@
       settings = {
         snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
         mapping = {
-          "<C-Space>" = "cmp.mapping.complete()";
+          "<C-Space>" = ''
+            cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.confirm({ select = true })
+              else
+                cmp.complete()
+              end
+            end, { "i", "s" })
+          '';
           "<C-e>" = "cmp.mapping.close()";
           "<C-n>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
           "<C-p>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
