@@ -26,10 +26,10 @@
       ];
 
       general = {
-        gaps_in = 0;
+        gaps_in = 5;
         gaps_out = 0;
 
-        border_size = 5;
+        border_size = 2;
 
         "col.active_border" = "rgba(d65d0eff) rgba(98971aff) 45deg";
         "col.inactive_border" = "rgba(3c3836ff)";
@@ -41,7 +41,7 @@
       };
 
       decoration = {
-        rounding = 0;
+        rounding = 5;
 
         active_opacity = 1.0;
         inactive_opacity = 1.0;
@@ -56,19 +56,27 @@
       };
 
       animations = {
-        enabled = false;
+        enabled = true;
+        # Define a custom curve (optional)
+        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+
+        # animation = "NAME, ON/OFF, SPEED, CURVE, STYLE"
+        # Lower SPEED values result in faster animations.
+        animation = [
+          "windows, 1, 3, myBezier"
+          "windowsOut, 1, 3, default, popin 80%"
+          "border, 1, 5, default"
+          "fade, 1, 3, default"
+          "workspaces, 1, 2, default"
+        ];
       };
 
       input = {
         kb_layout = "us";
-        kb_options = [ "grp:caps_toggle" "ctrl:swapcaps" ];
+        kb_options = ["grp:caps_toggle" "ctrl:swapcaps"];
       };
 
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_invert = false;
-        workspace_swipe_forever	= true;
-      };
+      gesture = "3, horizontal, workspace";
 
       dwindle = {
         pseudotile = true;
@@ -87,18 +95,18 @@
       };
 
       windowrulev2 = [
-        "bordersize 0, floating:0, onworkspace:w[t1]"
+        # "bordersize 0, floating:0, onworkspace:w[t1]"
 
         "float,class:(mpv)|(imv)|(showmethekey-gtk)"
         "move 990 60,size 900 170,pin,noinitialfocus,class:(showmethekey-gtk)"
         "noborder,nofocus,class:(showmethekey-gtk)"
 
-        "workspace 3,class:(obsidian)"
-        "workspace 3,class:(zathura)"
-        "workspace 4,class:(com.obsproject.Studio)"
-        "workspace 5,class:(telegram)"
-        "workspace 5,class:(vesktop)"
-        "workspace 6,class:(teams-for-linux)"
+        "workspace 1,class:(brave)"
+        "workspace 2,class:(obsidian)"
+        "workspace 3,class:(prismlauncher)"
+        "workspace special:magic,class:(zapzap)"
+        "workspace special:magic,class:(signal)"
+        "workspace special:magic,class:(telegram)"
 
         "suppressevent maximize, class:.*"
         "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
