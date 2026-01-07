@@ -5,6 +5,8 @@
       number = true;
       relativenumber = true;
       shiftwidth = 4;
+      tabstop = 4;
+      softtabstop = 4;
       completeopt = [
         "menu"
         "menuone"

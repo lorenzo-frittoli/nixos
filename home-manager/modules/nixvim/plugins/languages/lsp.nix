@@ -7,69 +7,66 @@ in
     lsp = {
       enable = true;
       servers = {
-        html.enable = true; # HTML
-        pyright.enable = true; # Python
-        marksman.enable = true; # Markdown
-        nil_ls.enable = true; # Nix
-        bashls.enable = true; # Bash
-        yamlls.enable = true; # YAML
-        lua_ls = {
+        # --- Existing ---
+        html.enable = true;
+        pyright.enable = true;
+        marksman.enable = true;
+        nil_ls.enable = true;
+        bashls.enable = true;
+        yamlls.enable = true;
+
+        # --- C++ (With your specific Tab settings) ---
+        clangd = {
           enable = true;
-          settings.telemetry.enable = false;
+          extraOptions = {
+            cmd = [
+              "clangd"
+              "--query-driver=${cppDriverPath}"
+              "--background-index"
+              "--fallback-style={BasedOnStyle: LLVM, UseTab: Always, IndentWidth: 4, TabWidth: 4}"
+            ];
+          };
         };
+
+        # --- Rust ---
         rust_analyzer = {
           enable = true;
           installRustc = true;
           installCargo = true;
           installRustfmt = true;
+          # Rust Analyzer runs "cargo check" (or clippy) on save automatically
+          settings.check.command = "clippy";
         };
-        clangd = {
+
+        # --- Lua ---
+        lua_ls = {
           enable = true;
-          # 2. Crucially, add the command-line arguments for clangd
-          extraOptions = {
-            cmd = [
-              "clangd"
-              # Tell clangd to ask the g++ driver for all necessary include paths (-isystem)
-              "--query-driver=${cppDriverPath}"
-              "--background-index"
-            ];
-          };
+          settings.telemetry.enable = false;
+        };
+
+        # --- NEW ADDITIONS ---
+
+        # JSON
+        jsonls.enable = true;
+
+        # TOML (taplo)
+        taplo.enable = true;
+
+        # Typst (tinymist is the modern choice)
+        tinymist = {
+          enable = true;
+          # Ensure it formats documents
+          settings.exportPdf = "onSave";
         };
       };
     };
 
-    lsp-format = {
-      enable = true;
-    };
-
-    lsp-status = {
-      enable = true;
-    };
-
+    # UI Enhancements
+    lsp-status.enable = true;
     lspkind = {
       enable = true;
-      settings.cmp = {
-        enable = true;
-        menu = {
-          nvim_lsp = "[LSP]";
-          nvim_lua = "[api]";
-          path = "[path]";
-          luasnip = "[snip]";
-          buffer = "[buffer]";
-          neorg = "[neorg]";
-        };
-      };
+      settings.cmp.enable = true;
     };
-
-    lualine = {
-      enable = true;
-    };
-
-    trouble = {
-      enable = true;
-      settings = {
-        multiline = true;
-      };
-    };
+    trouble.enable = true;
   };
 }
