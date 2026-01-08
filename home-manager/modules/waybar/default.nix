@@ -17,17 +17,17 @@
           all-outputs = false;
           format = "{icon}";
           format-icons = {
-            "1" = "";
-            "2" = "";
-            "3" = "";
+            "1" = "󰈹"; # Browser
+            "2" = "󰏫"; # Neovim
+            "3" = ""; # Terminal
             "4" = "4";
             "5" = "5";
             "6" = "6";
             "7" = "7";
             "8" = "8";
-            "9" = "";
-            "10" = "";
-            "magic" = "";
+            "9" = "󰓃"; # Music/Headphones
+            "10" = "󰍛"; # btop
+            "magic" = "󰭹"; # Magic/Special (chats)
           };
 
           persistent-workspaces = {
@@ -53,13 +53,13 @@
           format-bluetooth = "{icon} {volume}% ";
           format-muted = "";
           format-icons = {
-            "headphones" = "";
-            "handsfree" = "";
-            "headset" = "";
-            "phone" = "";
-            "portable" = "";
-            "car" = "";
-            "default" = ["" ""];
+            "headphones" = "󰋋";
+            "handsfree" = "󰋎";
+            "headset" = "󰋎";
+            "phone" = "󰏲";
+            "portable" = "󰏲";
+            "car" = "󰄄";
+            "default" = ["󰕿" "󰖀" "󰕾"];
           };
           on-click = "pavucontrol";
         };
@@ -72,7 +72,7 @@
           format = "{icon} {capacity}%";
           format-charging = " {capacity}%";
           format-alt = "{time} {icon}";
-          format-icons = ["" "" "" "" ""];
+          format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
         };
 
         "clock" = {

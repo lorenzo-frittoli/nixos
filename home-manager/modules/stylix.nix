@@ -1,16 +1,19 @@
-{ pkgs, inputs, ... }: {
-  imports = [ inputs.stylix.homeModules.stylix ];
+{
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [inputs.stylix.homeModules.stylix];
 
   home.packages = with pkgs; [
-    dejavu_fonts
+    # --- Core Fonts ---
     jetbrains-mono
     noto-fonts
-    noto-fonts-lgc-plus
-    texlivePackages.hebrew-fonts
     noto-fonts-color-emoji
     font-awesome
-    powerline-fonts
-    powerline-symbols
+
+    # --- Symbols ---
+    nerd-fonts.symbols-only
   ];
 
   stylix = {

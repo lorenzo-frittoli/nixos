@@ -30,7 +30,7 @@
                   return require("cmp").lsp.CompletionItemKind.Text ~= entry:get_kind()
               end'';
           }
-          { name = "nvim_lua"; }
+          {name = "nvim_lua";}
           {
             name = "luasnip";
             keyword_length = 2;
