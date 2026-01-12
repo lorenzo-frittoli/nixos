@@ -3,11 +3,11 @@
 #   booksDir = "$HOME/Downloads/books";
 #   booksScript = pkgs.writeScriptBin "open_books" ''
 #     #!/bin/sh
-# 
+#
 #     BOOKS_DIR="${booksDir}"
-# 
+#
 #     BOOK=$(find "$BOOKS_DIR" -type f \( -iname "*.pdf" -o -iname "*.epub" -o -iname "*.djvu" \) | wofi --dmenu --prompt "Select a book" --width 1200 --height 400)
-# 
+#
 #     if [[ -n "$BOOK" ]]; then
 #         zathura "$BOOK" &
 #     else
@@ -16,7 +16,6 @@
 #   '';
 # in {
 #   home.packages = [ booksScript ];
-
 {
   wayland.windowManager.hyprland.settings = {
     bind = [
@@ -24,13 +23,13 @@
       "$mainMod SHIFT, Q, exit,"
       "$mainMod,       B, exec, pkill -SIGUSR2 waybar"
       "$mainMod SHIFT, B, exec, pkill -SIGUSR1 waybar"
-      "$mainMod,       L, exec, hyprlock --immediate"
+      "$mainMod CTRL,  L, exec, hyprlock --immediate"
 
       # Open programs
       "$mainMod,       E, exec, $menu --show drun"
       "$mainMod,       Return, exec, $terminal"
       "$mainMod,       N, exec, swaync-client -t" # Notifications tray
-      "$mainMod,       V, exec, cliphist list | $menu --dmenu | cliphist decode | wl-copy"  # TODO: togliere buf nvim
+      "$mainMod,       V, exec, cliphist list | $menu --dmenu | cliphist decode | wl-copy"
       "$mainMod SHIFT, E, exec, bemoji -cn"
       "$mainMod SHIFT, P, exec, hyprpicker -an"
       # "$mainMod,       R, exec, $fileManager"
@@ -42,6 +41,7 @@
       # Window control
       "$mainMod SHIFT, C, killactive,"
       "$mainMod,       F, togglefloating,"
+      "$mainMod SHIFT, F, fullscreen, 0,"
       "$mainMod,       P, pin,"
 
       # Moving focus

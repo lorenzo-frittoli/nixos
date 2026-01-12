@@ -4,7 +4,7 @@
     none-ls = {
       enable = true;
       settings = {
-        cmd = [ "bash -c nvim" ];
+        cmd = ["bash -c nvim"];
       };
       sources = {
         code_actions = {
@@ -54,13 +54,12 @@
     lint = {
       enable = true;
       lintersByFt = {
-        cpp = [ "cppcheck" ];
-        # Rust usually doesn't need this if rust-analyzer is active,
-        # but kept if you want explicit clippy results in the lint window.
-        rust = [ "clippy" ];
-        text = [ "vale" ];
-        markdown = [ "vale" ];
-        json = [ "jsonlint" ];
+        cpp = ["cppcheck"];
+        json = ["jsonlint"];
+        markdown = ["vale"];
+        rust = ["clippy"];
+        text = ["vale"];
+        typst = ["tidy"];
       };
     };
 
@@ -72,24 +71,24 @@
 
         # For C++, use the LSP (clangd) because we configured it with your custom tabs.
         cpp = {
-          order = [ "clangd" ];
+          order = ["clangd"];
         };
 
         # For these, use none-ls (null-ls) because the CLI tools are better.
         python = {
-          order = [ "null-ls" ];
+          order = ["null-ls"];
         };
         lua = {
-          order = [ "null-ls" ];
+          order = ["null-ls"];
         };
         nix = {
-          order = [ "null-ls" ];
+          order = ["null-ls"];
         };
         markdown = {
-          order = [ "null-ls" ];
+          order = ["null-ls"];
         };
         json = {
-          order = [ "null-ls" ];
+          order = ["null-ls"];
         };
       };
     };

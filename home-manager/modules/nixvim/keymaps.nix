@@ -2,128 +2,69 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   programs.nixvim = {
     globals.mapleader = " ";
-    keymaps =
-      let
-        keymaps_raw = [
-          # Open file explorer
-          [
-            "n"
-            "<leader>pv"
-            ":Ex<Enter>"
-          ]
+    keymaps = let
+      keymaps_raw = [
+        # Harpoon keybinds
+        ["n" "<leader>a" "<cmd>lua require('harpoon'):list():add()<cr>"]
+        ["n" "<C-e>" "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>"]
+        ["n" "<C-h>" "<cmd>lua require('harpoon'):list():select(1)<cr>"]
+        ["n" "<C-j>" "<cmd>lua require('harpoon'):list():select(2)<cr>"]
+        ["n" "<C-k>" "<cmd>lua require('harpoon'):list():select(3)<cr>"]
+        ["n" "<C-l>" "<cmd>lua require('harpoon'):list():select(4)<cr>"]
 
-          # Move selected lines
-          [
-            "v"
-            "<C-j>"
-            ":m '>+1<CR>gv=gv"
-          ]
-          [
-            "v"
-            "<C-k>"
-            ":m '<-2<CR>gv=gv"
-          ]
-          [
-            "n"
-            "<C-j>"
-            ":m +1<CR>"
-          ]
-          [
-            "n"
-            "<C-k>"
-            ":m -2<CR>"
-          ]
+        # Open file explorer
+        ["n" "<leader>pv" ":Ex<Enter>"]
 
-          # Fix line append cursor position
-          [
-            "n"
-            "J"
-            "mzJ`z"
-          ]
+        # Preview
+        ["n" "<leader>ms" ":Markview splitToggle<Enter>"]
+        ["n" "<leader>mv" ":Markview splitToggle<Enter>"]
 
-          # Fix page scroll cursor position
-          [
-            "n"
-            "<C-d>"
-            "<C-d>zz"
-          ]
-          [
-            "n"
-            "<C-u>"
-            "<C-u>zz"
-          ]
+        # Move selected lines
+        ["v" "<C-j>" ":m +1<CR>"]
+        ["v" "<C-k>" ":m -2<CR>"]
 
-          # Fix search result position
-          [
-            "n"
-            "n"
-            "nzzzv"
-          ]
-          [
-            "n"
-            "N"
-            "Nzzzv"
-          ]
+        # Fix line append cursor position
+        ["n" "J" "mzJ`z"]
 
-          # Paste with deletion without affecting clipboard
-          [
-            "x"
-            "<leader>p"
-            "[[\"_dP]]"
-          ]
+        # Fix page scroll cursor position
+        ["n" "<C-d>" "<C-d>zz"]
+        ["n" "<C-u>" "<C-u>zz"]
 
-          # P/Y for system clipboard
-          [
-            [
-              "n"
-              "v"
-            ]
-            "Y"
-            "\"+y"
-          ]
-          [
-            [
-              "n"
-              "v"
-            ]
-            "P"
-            "\"+p"
-          ]
+        # Fix search result position
+        ["n" "n" "nzzzv"]
+        ["n" "N" "Nzzzv"]
 
-          # Delete without affecting clipboard
-          [
-            [
-              "n"
-              "v"
-            ]
-            "<leader>d"
-            "[[\"_d]]"
-          ]
-        ];
+        # Paste with deletion without affecting clipboard
+        ["x" "<leader>p" "[[\"_dP]]"]
 
-        keys = [
-          "mode"
-          "key"
-          "action"
-        ];
+        # P/Y for system clipboard
+        [["n" "v"] "Y" "\"+y"]
+        [["n" "v"] "P" "\"+p"]
 
-        toSet =
-          values:
-          builtins.listToAttrs (
-            lib.lists.zipListsWith (key: value: {
-              name = key;
-              inherit value;
-            }) keys values
-          );
+        # Delete without affecting clipboard
+        [["n" "v"] "<leader>d" "[[\"_d]]"]
+      ];
 
-        keymaps = map toSet keymaps_raw;
-      in
+      keys = ["mode" "key" "action"];
+
+      toSet = values:
+        builtins.listToAttrs (
+          lib.lists.zipListsWith (key: value: {
+            name = key;
+            inherit value;
+          })
+          keys
+          values
+        );
+
+      keymaps = map toSet keymaps_raw;
+    in
       config.lib.nixvim.keymaps.mkKeymaps {
         options.silent = true;
-      } keymaps;
+      }
+      keymaps;
   };
 }

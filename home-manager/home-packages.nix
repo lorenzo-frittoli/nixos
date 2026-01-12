@@ -1,5 +1,8 @@
-{ pkgs, pkgs-unstable, ... }:
 {
+  pkgs,
+  pkgs-unstable,
+  ...
+}: {
   # Allow unfree packages (e.g. obsidian, steam-run, spotify)
   nixpkgs.config.allowUnfree = true;
 
@@ -71,6 +74,9 @@
     python3 # changed from python314 (doesn't exist/too new)
     rust-analyzer
     rustc
+    typst
+    typstyle
+    vale
 
     # --- WM stuff ---
     # libsForQt5.xwaylandvideobridge

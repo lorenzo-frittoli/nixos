@@ -19,7 +19,7 @@
 
         change_to_dir = false;
         use_unicode = true;
-        lists = [ { type = "dir"; } ];
+        lists = [{type = "dir";}];
         files_number = 30;
         autoExpandWidth = true;
         skiplist = [
@@ -28,13 +28,9 @@
       };
     };
 
-    barbar = {
+    harpoon = {
       enable = true;
-      keymaps = {
-        next.key = "<TAB>";
-        previous.key = "<S-TAB>";
-        close.key = "<C-w>";
-      };
+      enableTelescope = true; # Optional, since you use telescope
     };
 
     # neo-tree = {

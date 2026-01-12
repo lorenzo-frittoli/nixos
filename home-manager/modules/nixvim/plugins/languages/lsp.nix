@@ -44,8 +44,6 @@ in
           settings.telemetry.enable = false;
         };
 
-        # --- NEW ADDITIONS ---
-
         # JSON
         jsonls.enable = true;
 
