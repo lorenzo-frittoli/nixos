@@ -21,6 +21,12 @@
         # Preview
         ["n" "<leader>ms" ":Markview splitToggle<Enter>"]
         ["n" "<leader>mv" ":Markview splitToggle<Enter>"]
+        # This Lua block toggles the flag and the previewer
+        [
+          "n"
+          "<leader>tp"
+          ":lua if vim.g.typst_preview_active then vim.cmd('TypstPreviewStop'); vim.g.typst_preview_active = false else vim.cmd('TypstPreview'); vim.g.typst_preview_active = true end<CR>"
+        ]
 
         # Move selected lines
         ["v" "<C-j>" ":m +1<CR>"]

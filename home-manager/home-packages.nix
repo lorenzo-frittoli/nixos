@@ -17,6 +17,7 @@
     freecad # "freecad-wayland" is usually not a separate package
     gimp # "gimp3" is not a standard attribute name yet
     imv
+    inkscape-with-extensions
     kicad
     libreoffice-qt6
     mpv
@@ -27,6 +28,7 @@
     openscad
     pavucontrol
     prismlauncher
+    qutebrowser
     unstable.signal-desktop
     telegram-desktop
     vesktop

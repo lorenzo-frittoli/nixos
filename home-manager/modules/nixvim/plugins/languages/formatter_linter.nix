@@ -45,6 +45,9 @@
             settings = ''{ extra_args = { "--fast" } }'';
           };
 
+          # Typst
+          typstyle.enable = true;
+
           # REMOVED: clang_format (We will let clangd handle this to support your Tabs preference)
         };
       };

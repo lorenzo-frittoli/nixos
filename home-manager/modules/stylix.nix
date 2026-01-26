@@ -12,6 +12,14 @@
     noto-fonts-color-emoji
     font-awesome
 
+    # --- Other Fonts ---
+    liberation_ttf
+    fira-code
+    fira-code-symbols
+    mplus-outline-fonts.githubRelease
+    inter
+    liberation_ttf
+
     # --- Symbols ---
     nerd-fonts.symbols-only
   ];
