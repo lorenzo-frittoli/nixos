@@ -1,5 +1,6 @@
 {
   imports = [
+    ./apps.nix
     ./bat.nix
     ./eza.nix
     ./git.nix

@@ -25,6 +25,7 @@
     networkmanager
     kdePackages.plasma-nm
     obsidian
+	octaveFull
     openscad
     pavucontrol
     prismlauncher
@@ -35,6 +36,7 @@
     zapzap
 
     # --- CLI utils ---
+	p7zip
     btop
     brightnessctl
     cliphist

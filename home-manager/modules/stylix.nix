@@ -20,6 +20,10 @@
     inter
     liberation_ttf
 
+    # --- Chinese ---
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+
     # --- Symbols ---
     nerd-fonts.symbols-only
   ];

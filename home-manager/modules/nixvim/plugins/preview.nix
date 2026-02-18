@@ -1,9 +1,5 @@
 {
   programs.nixvim.plugins = {
-    markview = {
-      enable = true;
-    };
-
     typst-preview = {
       enable = true;
       settings = {

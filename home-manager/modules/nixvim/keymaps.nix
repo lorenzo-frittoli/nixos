@@ -18,9 +18,6 @@
         # Open file explorer
         ["n" "<leader>pv" ":Ex<Enter>"]
 
-        # Preview
-        ["n" "<leader>ms" ":Markview splitToggle<Enter>"]
-        ["n" "<leader>mv" ":Markview splitToggle<Enter>"]
         # This Lua block toggles the flag and the previewer
         [
           "n"
