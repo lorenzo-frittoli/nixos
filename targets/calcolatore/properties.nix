@@ -1,0 +1,4 @@
+{
+  hostname = "calcolatore";
+  hasGui = true;
+}

@@ -1,4 +1,5 @@
 {pkgs, ...}: {
+  # Fonts
   fonts.packages = with pkgs; [
     # --- Core Fonts ---
     jetbrains-mono
@@ -22,7 +23,9 @@
     nerd-fonts.symbols-only
   ];
 
+  # Packages required by all systems
   environment.systemPackages = with pkgs; [
-    # host-specific packages here ...
+    git
+    wget
   ];
 }

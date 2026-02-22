@@ -1,20 +1,12 @@
 {
   imports = [
-    ./apps.nix
     ./bat.nix
     ./eza.nix
     ./git.nix
-    ./hyprland
-    ./kitty.nix
     ./nixvim/default.nix
-    ./obsidian.nix
     ./starship.nix
     ./stylix.nix
-    ./swaync
-    ./waybar
-    ./wofi
     ./yazi.nix
-    ./zathura.nix
     ./zoxide.nix
     ./zsh.nix
   ];

@@ -1,12 +1,18 @@
 {
   homeStateVersion,
   user,
+  hasGui,
   ...
 }: {
-  imports = [
-    ./modules
-    ./home-packages.nix
-  ];
+  imports =
+    [
+      ./cli/default.nix
+    ]
+    ++ (
+      if hasGui
+      then [./gui/default.nix]
+      else []
+    );
 
   home = {
     username = user;
