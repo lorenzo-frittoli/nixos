@@ -5,6 +5,7 @@
     settings = {
       env = [
         # Hint Electron apps to use Wayland
+        "WLR_NO_HARDWARE_CURSORS,1"
         "NIXOS_OZONE_WL,1"
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
@@ -114,7 +115,7 @@
       };
 
       misc = {
-        vrr = 1; # Enable Variable Refresh Rate (0=off, 1=on, 2=fullscreen only)
+        vrr = 0; # Enable Variable Refresh Rate (0=off, 1=on, 2=fullscreen only)
         force_default_wallpaper = 0;
         disable_hyprland_logo = true;
       };
