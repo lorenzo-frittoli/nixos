@@ -8,7 +8,7 @@
     ./disko.nix
     ./hardware-configuration.nix
     ./nvidia.nix
-    ../../core/modules/default.nix
+    ../../core/default.nix
   ];
 
   environment.systemPackages = [pkgs.home-manager];

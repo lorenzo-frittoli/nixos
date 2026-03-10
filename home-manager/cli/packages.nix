@@ -39,6 +39,7 @@
     cargo
     gcc
     gdb
+    gemini-cli
     python3
     rust-analyzer
     rustc

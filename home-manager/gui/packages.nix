@@ -23,6 +23,7 @@
     networkmanagerapplet
     networkmanager
     kdePackages.plasma-nm
+	obs-studio
     octaveFull
     openscad
     pavucontrol
