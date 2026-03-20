@@ -40,7 +40,7 @@
     gcc
     gdb
     gemini-cli
-    python3
+    (python3.withPackages (ps: with ps; [pygobject3 tkinter]))
     rust-analyzer
     rustc
     typst

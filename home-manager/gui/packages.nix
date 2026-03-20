@@ -16,14 +16,26 @@
     grimblast
     hyprpicker
     imv
-    inkscape-with-extensions
+    (symlinkJoin {
+      name = "inkscape-textext-fixed";
+      paths = [
+        (inkscape-with-extensions.override {
+          inkscapeExtensions = [inkscape-extensions.textext];
+        })
+      ];
+      nativeBuildInputs = [makeWrapper];
+      postBuild = ''
+        wrapProgram $out/bin/inkscape \
+          --prefix PYTHONPATH : "${python3.withPackages (ps: with ps; [pygobject3])}/${python3.sitePackages}"
+      '';
+    })
     kicad
     libreoffice-qt6
     mpv
     networkmanagerapplet
     networkmanager
     kdePackages.plasma-nm
-	obs-studio
+    obs-studio
     octaveFull
     openscad
     pavucontrol
