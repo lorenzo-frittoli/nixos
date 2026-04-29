@@ -5,6 +5,7 @@
     ./git.nix
     ./nixvim/default.nix
     ./mpd.nix
+    ./rmpc/default.nix
     ./starship.nix
     ./stylix.nix
     ./yazi.nix

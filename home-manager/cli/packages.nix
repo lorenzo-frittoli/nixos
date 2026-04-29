@@ -7,6 +7,7 @@
     # --- CLI utils ---
     p7zip
     btop
+    cava
     cliphist
     ffmpeg
     ffmpegthumbnailer

@@ -10,18 +10,18 @@
   stylix = {
     enable = true;
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-medium.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 
     targets = {
       btop.enable = false;
       hyprland.enable = false;
       hyprlock.enable = false;
-      neovim.enable = false;
+      neovim.enable = true;
       waybar.enable = false;
       wofi.enable = false;
     };
 
-    # opacity.terminal = 0.2;
+    opacity.terminal = 0.2;
 
     cursor = {
       name = "DMZ-Black";
