@@ -4,6 +4,7 @@
     ./eza.nix
     ./git.nix
     ./nixvim/default.nix
+    ./mpd.nix
     ./starship.nix
     ./stylix.nix
     ./yazi.nix

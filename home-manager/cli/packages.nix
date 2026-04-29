@@ -17,7 +17,6 @@
     linux-wifi-hotspot
     mediainfo
     microfetch
-	mpd
     ntfs3g
     playerctl
     ripgrep
