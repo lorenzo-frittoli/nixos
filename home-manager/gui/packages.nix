@@ -29,6 +29,7 @@
           --prefix PYTHONPATH : "${python3.withPackages (ps: with ps; [pygobject3])}/${python3.sitePackages}"
       '';
     })
+	kdePackages.kdenlive
     kicad
     libreoffice-qt6
     mpv
@@ -45,6 +46,7 @@
     telegram-desktop
     unstable.signal-desktop
     vesktop
+    wineWow64Packages.stable
     zapzap
 
     # --- WM stuff ---

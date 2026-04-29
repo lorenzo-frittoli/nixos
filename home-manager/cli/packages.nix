@@ -17,9 +17,11 @@
     linux-wifi-hotspot
     mediainfo
     microfetch
+	mpd
     ntfs3g
     playerctl
     ripgrep
+    rmpc
     silicon
     steam-run-free
     trashy

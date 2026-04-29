@@ -15,6 +15,9 @@
     inter
     liberation_ttf
 
+    # --- Windows ---
+    corefonts
+
     # --- Chinese ---
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
