@@ -17,10 +17,6 @@
       termguicolors = true;
     };
 
-    colorschemes.everforest = {
-      enable = true;
-    };
-
     dependencies = {
       chafa.enable = true;
       imagemagick.enable = true;

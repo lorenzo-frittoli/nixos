@@ -1,7 +1,7 @@
 {
   programs.waybar = {
     enable = true;
-    style = ./style.css;
+    # style = ./style.css;
     settings = {
       mainBar = {
         layer = "top";
@@ -82,7 +82,7 @@
 
         "tray" = {
           icon-size = 14;
-          spacing = 1;
+          spacing = 3;
         };
       };
     };

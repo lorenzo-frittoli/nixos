@@ -10,18 +10,18 @@
   stylix = {
     enable = true;
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-terminal-dark.yaml";
 
     targets = {
-      btop.enable = false;
-      hyprland.enable = false;
+      btop.enable = true;
+      hyprland.enable = true;
       hyprlock.enable = false;
       neovim.enable = true;
-      waybar.enable = false;
-      wofi.enable = false;
+      waybar.enable = true;
+      wofi.enable = true;
     };
 
-    opacity.terminal = 0.2;
+    # opacity.terminal = 0.2;
 
     cursor = {
       name = "DMZ-Black";
@@ -49,8 +49,10 @@
       };
 
       sizes = {
+        desktop = 13;
         terminal = 13;
         applications = 11;
+        popups = 10;
       };
     };
 
