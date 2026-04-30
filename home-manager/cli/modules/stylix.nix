@@ -68,6 +68,6 @@
     #   sha256 = "036gqhbf6s5ddgvfbgn6iqbzgizssyf7820m5815b2gd748jw8zc";
     # };
 
-    image = ../../../static/leslie_gay.jpg;
+    image = ../../../static/leslie_gay_2.png;
   };
 }
