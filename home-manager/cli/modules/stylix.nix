@@ -17,7 +17,7 @@
       hyprland.enable = true;
       hyprlock.enable = false;
       neovim.enable = true;
-      waybar.enable = true;
+      waybar.enable = false;
       wofi.enable = true;
     };
 
@@ -52,7 +52,7 @@
         desktop = 13;
         terminal = 13;
         applications = 11;
-        popups = 10;
+        popups = 8;
       };
     };
 

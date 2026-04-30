@@ -1,3 +1,3 @@
 {
-  imports = [./modules/default.nix ./packages.nix];
+  imports = [./modules/default.nix ./packages.nix ./variables.nix];
 }

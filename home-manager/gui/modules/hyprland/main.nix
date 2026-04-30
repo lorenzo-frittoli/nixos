@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
@@ -27,10 +27,10 @@
       ];
 
       general = {
-        gaps_in = 5;
-        gaps_out = 5;
+        gaps_in = config.theme.gaps;
+        gaps_out = config.theme.gaps;
 
-        border_size = 2;
+        border_size = config.theme.border_size;
 
         # "col.active_border" = "rgba(d65d0eff) rgba(98971aff) 45deg";
         # "col.inactive_border" = "rgba(3c3836ff)";
@@ -42,7 +42,7 @@
       };
 
       decoration = {
-        rounding = 5;
+        rounding = config.theme.rounding;
 
         active_opacity = 1.0;
         inactive_opacity = 1.0;
