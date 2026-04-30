@@ -7,9 +7,9 @@
       ./env.nix
       ./home-manager.nix
       ./kernel.nix
+      ./lix.nix
       ./net.nix
       ./nh.nix
-      ./nix.nix
       ./timezone.nix
       ./user.nix
     ]
