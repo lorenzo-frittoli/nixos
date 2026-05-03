@@ -1,8 +1,6 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   cppDriverPath = "${pkgs.gcc.cc}/bin/g++";
-in
-{
+in {
   programs.nixvim.plugins = {
     lsp = {
       enable = true;
