@@ -28,7 +28,8 @@
       gc = "git commit";
       gp = "git push";
 
-      cd = "z";
+      fd = "z";
+      fdi = "zi";
       yz = "yazi";
       xo = "xdg-open";
       microfetch = "microfetch && echo";
