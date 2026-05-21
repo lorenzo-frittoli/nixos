@@ -5,6 +5,7 @@
     settings = {
       env = [
         # Hint Electron apps to use Wayland
+        "WLR_DRM_NO_ATOMIC,1"
         "WLR_NO_HARDWARE_CURSORS,1"
         "NIXOS_OZONE_WL,1"
         "XDG_CURRENT_DESKTOP,Hyprland"
@@ -14,7 +15,10 @@
         "XDG_SCREENSHOTS_DIR,$HOME/screens"
       ];
 
-      monitor = ", preferred, auto, 1";
+      monitor = [
+        "DP-1,2560x1440@120,-320x0,1"
+        "eDP-1,1920x1080@144,0x1440,1"
+      ];
       "$mainMod" = "ALT";
       "$terminal" = "kitty";
       "$fileManager" = "$terminal -e sh -c 'ranger'";

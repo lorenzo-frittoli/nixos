@@ -57,9 +57,11 @@ in {
             "magic" = "󰭹"; # Magic/Special (chats)
           };
 
+          /*
           persistent-workspaces = {
             "*" = 10;
           };
+          */
         };
 
         "custom/weather" = {

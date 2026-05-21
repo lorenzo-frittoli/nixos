@@ -23,7 +23,7 @@
       "$mainMod SHIFT, Q, exit,"
       "$mainMod,       B, exec, pkill -SIGUSR2 waybar"
       "$mainMod SHIFT, B, exec, pkill -SIGUSR1 waybar"
-      "$mainMod CTRL,  L, exec, hyprlock --immediate"
+      "$mainMod CTRL, Escape, exec, hyprlock --immediate"
 
       # Open programs
       "$mainMod,       E, exec, $menu --show drun"
@@ -58,11 +58,17 @@
       "$mainMod SHIFT, K, swapwindow, u"
       "$mainMod SHIFT, J, swapwindow, d"
 
-      # Resizeing windows               X  Y
-      "$mainMod CTRL, H, resizeactive, -60 0"
-      "$mainMod CTRL, L, resizeactive,  60 0"
-      "$mainMod CTRL, K, resizeactive,  0 -60"
-      "$mainMod CTRL, J, resizeactive,  0  60"
+      # Moving workspaces between monitors
+      "$mainMod CTRL, H, movecurrentworkspacetomonitor, l"
+      "$mainMod CTRL, L, movecurrentworkspacetomonitor, r"
+      "$mainMod CTRL, K, movecurrentworkspacetomonitor, u"
+      "$mainMod CTRL, J, movecurrentworkspacetomonitor, d"
+
+      # Resizeing windows                     X  Y
+      "$mainMod CTRL SHIFT, H, resizeactive, -60 0"
+      "$mainMod CTRL SHIFT, L, resizeactive,  60 0"
+      "$mainMod CTRL SHIFT, K, resizeactive,  0 -60"
+      "$mainMod CTRL SHIFT, J, resizeactive,  0  60"
 
       # Switching workspaces
       "$mainMod, 1, workspace, 1"
