@@ -7,6 +7,7 @@
     noto-fonts-color-emoji
     roboto
     source-sans
+    source-sans-pro
     font-awesome
 
     # --- Other Fonts ---
