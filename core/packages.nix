@@ -5,6 +5,8 @@
     jetbrains-mono
     noto-fonts
     noto-fonts-color-emoji
+    roboto
+    source-sans
     font-awesome
 
     # --- Other Fonts ---
