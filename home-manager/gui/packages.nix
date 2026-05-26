@@ -16,20 +16,7 @@
     grimblast
     hyprpicker
     imv
-    (symlinkJoin {
-      name = "inkscape-textext-fixed";
-      paths = [
-        (inkscape-with-extensions.override {
-          inkscapeExtensions = [inkscape-extensions.textext];
-        })
-      ];
-      nativeBuildInputs = [makeWrapper];
-      postBuild = ''
-        wrapProgram $out/bin/inkscape \
-          --prefix PYTHONPATH : "${python3.withPackages (ps: with ps; [pygobject3])}/${python3.sitePackages}"
-      '';
-    })
-	kdePackages.kdenlive
+    kdePackages.kdenlive
     kicad
     libreoffice-qt6
     mpv
@@ -43,6 +30,7 @@
     prismlauncher
     qutebrowser
     showmethekey
+    super-productivity
     telegram-desktop
     unstable.signal-desktop
     vesktop
@@ -53,5 +41,20 @@
     libnotify
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
+
+    # --- Inkscape ---
+    (symlinkJoin {
+      name = "inkscape-textext-fixed";
+      paths = [
+        (inkscape-with-extensions.override {
+          inkscapeExtensions = [inkscape-extensions.textext];
+        })
+      ];
+      nativeBuildInputs = [makeWrapper];
+      postBuild = ''
+        wrapProgram $out/bin/inkscape \
+          --prefix PYTHONPATH : "${python3.withPackages (ps: with ps; [pygobject3])}/${python3.sitePackages}"
+      '';
+    })
   ];
 }
