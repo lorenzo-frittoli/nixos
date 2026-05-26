@@ -52,7 +52,7 @@ in {
         tinymist = {
           enable = true;
           # Ensure it formats documents
-          settings.exportPdf = "onSave";
+          settings.exportPdf = "never";
         };
       };
     };
