@@ -138,14 +138,9 @@
         "noborder,nofocus,class:(showmethekey-gtk)"
 
         # Static workspace assignments: bind apps to specific numbered or special workspaces
-        "workspace 1,class:(brave-browser)"
-        "workspace 2,class:(obsidian)"
-        "workspace 2,class:(^.*Minecraft.*$)"
-        "workspace 3,class:(org.prismlauncher.PrismLauncher)"
-        "workspace 3,class:(steam)"
-        "workspace special:magic,class:(ZapZap)"
-        "workspace special:magic,class:(signal)"
-        "workspace special:magic,class:(org.telegram.desktop)"
+        "workspace special:chats,class:(ZapZap)"
+        "workspace special:chats,class:(signal)"
+        "workspace special:chats,class:(org.telegram.desktop)"
 
         # Global rule: Ignore 'maximize' requests from all windows to maintain tiling integrity
         "suppressevent maximize, class:.*"

@@ -12,8 +12,8 @@ in {
   # 3. Use the script in the desktop entry
   xdg.desktopEntries = {
     messaging-apps = {
-      name = "Messaging Apps";
-      genericName = "Messaging Suite";
+      name = "Chats";
+      genericName = "Messaging Suite chats";
       # Point directly to the script's binary
       exec = "${launch-messengers}/bin/launch-messengers";
       icon = "org.telegram.desktop";

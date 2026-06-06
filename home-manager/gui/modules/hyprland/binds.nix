@@ -39,7 +39,7 @@
       "$mainMod, Print, exec, grimblast --notify --freeze copysave area"
 
       # Window control
-      "$mainMod SHIFT, C, killactive,"
+      "$mainMod SHIFT, D, killactive,"
       "$mainMod,       F, togglefloating,"
       "$mainMod SHIFT, F, fullscreen, 0,"
       "$mainMod,       P, pin,"
@@ -94,9 +94,17 @@
       "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
       "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
 
-      # Scratchpad
+      # Scratchpads
       "$mainMod,       S, togglespecialworkspace,  magic"
       "$mainMod SHIFT, S, movetoworkspace, special:magic"
+      "$mainMod,       C, togglespecialworkspace,  chats"
+      "$mainMod SHIFT, C, movetoworkspace, special:chats"
+      "$mainMod,       M, togglespecialworkspace,  music"
+      "$mainMod SHIFT, M, movetoworkspace, special:music"
+      "$mainMod,       O, togglespecialworkspace,  btop"
+      "$mainMod SHIFT, O, movetoworkspace, special:btop"
+      "$mainMod,       T, togglespecialworkspace,  todo"
+      "$mainMod SHIFT, T, movetoworkspace, special:todo"
     ];
 
     # Move/resize windows with mainMod + LMB/RMB and dragging
