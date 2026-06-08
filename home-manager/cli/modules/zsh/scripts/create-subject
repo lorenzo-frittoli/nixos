@@ -1,0 +1,40 @@
+#!/usr/bin/env zsh
+
+# Exit silently and immediately if any command fails
+set -e
+
+# 1. Silently validate the core environment variable
+if [[ -z "$STUDY_DIR" ]]; then
+    exit 1
+fi
+
+# 2. Assign parameters with intelligent defaults
+# $1: Subject name (Required)
+# $2: Template name (Defaults to "default")
+# $3: Destination directory (Defaults to current directory ".")
+SUBJECT_NAME="${1}"
+TEMPLATE_NAME="${2:-default}"
+DEST_DIR="${3:-.}"
+
+# 3. Fail silently if the user forgot the required subject name
+if [[ -z "$SUBJECT_NAME" ]]; then
+    exit 1
+fi
+
+# 4. Define paths based on arguments
+SOURCE_TEMPLATE_DIR="$STUDY_DIR/templates/$TEMPLATE_NAME"
+TARGET_DIR="$DEST_DIR/$SUBJECT_NAME"
+
+# 5. Fail silently if template doesn't exist
+if [[ ! -d "$SOURCE_TEMPLATE_DIR" ]]; then
+    exit 1
+fi
+
+# 6. Fail silently to protect existing workspace from overrides
+if [[ -d "$TARGET_DIR" ]]; then
+    exit 1
+fi
+
+# 7. Execute the operations silently
+mkdir -p "$TARGET_DIR"
+cp -r "$SOURCE_TEMPLATE_DIR/"* "$TARGET_DIR/"
