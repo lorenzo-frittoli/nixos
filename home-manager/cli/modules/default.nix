@@ -11,6 +11,6 @@
     ./stylix.nix
     ./yazi.nix
     ./zoxide.nix
-    ./zsh.nix
+    ./zsh/default.nix
   ];
 }

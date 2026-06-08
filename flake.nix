@@ -47,6 +47,7 @@
       unstable = import nixpkgs-unstable {
         system = system;
         config.allowUnfree = true;
+        config.permittedInsecurePackages = ["electron-39.8.10"];
       };
     };
 
@@ -78,6 +79,7 @@
               nixpkgs.overlays = [overlay-unstable];
 
               nixpkgs.config.allowUnfree = true;
+              nixpkgs.config.permittedInsecurePackages = ["electron-39.8.10"];
             }
           )
 
@@ -119,6 +121,7 @@
                     ...
                   }: {
                     nixpkgs.overlays = [overlay-unstable];
+                    nixpkgs.config.permittedInsecurePackages = ["electron-39.8.10"];
                   }
                 )
                 ./home-manager/default.nix

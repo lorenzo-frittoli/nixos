@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+# Get eth and wifi interface from nmcli
+ETHERNET=$(nmcli dev | sed '/ethernet/!d' | fzf -e | awk '{print $1;}')
+WIFI=$(nmcli dev | sed '/wifi/!d' | fzf -e | awk '{print $1;}')
+
+# Input name and password
+vared -p 'Hotspot name: ' -c NAME
+vared -p 'Hotspot password: ' -c PASSWORD
+
+# Run command
+sudo create_ap $WIFI $ETHERNET $NAME $PASSWORD

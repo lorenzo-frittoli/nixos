@@ -1,6 +1,4 @@
-{ config, ... }:
-{
-
+{config, ...}: {
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
@@ -16,7 +14,6 @@
   ];
 
   hardware.nvidia = {
-
     # Modesetting is required.
     modesetting.enable = true;
 

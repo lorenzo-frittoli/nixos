@@ -14,46 +14,32 @@
           statix.enable = true; # Nix
           deadnix.enable = true; # Nix
           pylint.enable = true; # Python
-          # Removed cppcheck from here (using nvim-lint instead for performance)
         };
         formatting = {
-          # Nix
-          alejandra.enable = true;
+          alejandra.enable = true; # Nix
+          stylua.enable = true; # Lua
+          shfmt.enable = true; # Shell
 
-          # Lua
-          stylua.enable = true;
-
-          # Shell
-          shfmt.enable = true;
-
-          # Web/Markdown/JSON
           prettier = {
             enable = true;
             disableTsServerFormatter = true;
             settings = {
-              extra_filetypes = [
-                "vue"
-                "json"
-                "markdown"
-              ];
+              extra_filetypes = ["vue" "json" "markdown"];
             };
           };
 
-          # Python
           black = {
             enable = true;
             settings = ''{ extra_args = { "--fast" } }'';
           };
 
-          # Typst
+          # Typst Formatter (Modern, fast, and active)
           typstyle.enable = true;
-
-          # REMOVED: clang_format (We will let clangd handle this to support your Tabs preference)
         };
       };
     };
 
-    # 2. STANDALONE LINTERS (lighter weight than none-ls)
+    # 2. STANDALONE LINTERS
     lint = {
       enable = true;
       lintersByFt = {
@@ -62,7 +48,7 @@
         markdown = ["vale"];
         rust = ["clippy"];
         text = ["vale"];
-        typst = ["tidy"];
+        # Typst is intentionally left out here to prevent 'tidy' from running
       };
     };
 
@@ -70,29 +56,20 @@
     lsp-format = {
       enable = true;
       settings = {
-        # FORCE PRIORITY: Neovim, please use these formatters.
-
-        # For C++, use the LSP (clangd) because we configured it with your custom tabs.
         cpp = {
           order = ["clangd"];
         };
 
-        # For these, use none-ls (null-ls) because the CLI tools are better.
-        python = {
+        # Explicitly force Typst to use none-ls (null-ls) for typstyle
+        typst = {
           order = ["null-ls"];
         };
-        lua = {
-          order = ["null-ls"];
-        };
-        nix = {
-          order = ["null-ls"];
-        };
-        markdown = {
-          order = ["null-ls"];
-        };
-        json = {
-          order = ["null-ls"];
-        };
+
+        python = {order = ["null-ls"];};
+        lua = {order = ["null-ls"];};
+        nix = {order = ["null-ls"];};
+        markdown = {order = ["null-ls"];};
+        json = {order = ["null-ls"];};
       };
     };
   };
