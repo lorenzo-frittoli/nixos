@@ -22,7 +22,7 @@ if [[ -z "$SUBJECT_NAME" ]]; then
 fi
 
 # 4. Define paths based on arguments
-SOURCE_TEMPLATE_DIR="$STUDY_DIR/templates/$TEMPLATE_NAME"
+SOURCE_TEMPLATE_DIR="$STUDY_DIR/subject_templates/$TEMPLATE_NAME"
 TARGET_DIR="$DEST_DIR/$SUBJECT_NAME"
 
 # 5. Fail silently if template doesn't exist
