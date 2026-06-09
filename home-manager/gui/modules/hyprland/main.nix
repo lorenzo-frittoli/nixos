@@ -5,20 +5,21 @@
     settings = {
       env = [
         # Hint Electron apps to use Wayland
-        "WLR_NO_HARDWARE_CURSORS,1"
         "NIXOS_OZONE_WL,1"
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
         "QT_QPA_PLATFORM,wayland"
         "XDG_SCREENSHOTS_DIR,$HOME/screens"
-        "AQ_DRM_DEVICES,/dev/dri/card2:/dev/dri/card1"
+        "AQ_DRM_DEVICES,/dev/dri/card1:/dev/dri/card2"
+        "AQ_NO_MODIFIERS,1"
       ];
 
       monitor = [
         "DP-1,3840x2160@60,0x0,2"
-        "eDP-1,preferred,1920x0,1"
+        "eDP-1,1920x1080@144,0x1080,1"
       ];
+
       "$mainMod" = "ALT";
       "$terminal" = "kitty";
       "$fileManager" = "$terminal -e sh -c 'ranger'";
