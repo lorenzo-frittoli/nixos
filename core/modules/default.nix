@@ -4,7 +4,7 @@
       ./audio.nix
       ./bluetooth.nix
       ./boot.nix
-      # ./docker.nix
+      ./docker.nix
       ./env.nix
       ./home-manager.nix
       ./kernel.nix

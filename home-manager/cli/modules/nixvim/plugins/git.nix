@@ -16,9 +16,5 @@
     diffview = {
       enable = true;
     };
-
-    git-conflict = {
-      enable = true;
-    };
   };
 }
