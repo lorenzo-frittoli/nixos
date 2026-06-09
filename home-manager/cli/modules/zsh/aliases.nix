@@ -30,41 +30,6 @@
       tsp = "customtrash";
       tsl = "trash list";
       tsr = "trash list | fzf --multi | awk '{$1=$1;print}' | rev | cut -d ' ' -f1 | rev | xargs trash restore --match=exact --force";
-
-      nvidia-offload = ''
-        export __NV_PRIME_RENDER_OFFLOAD=1
-        export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-        export __GLX_VENDOR_LIBRARY_NAME=nvidia
-        export __VK_LAYER_NV_optimus=NVIDIA_only
-        exec "$@"
-      '';
-
-      hotspot = ''
-        # Get eth and wifi interface from nmcli
-        ETHERNET=$(nmcli dev | sed '/ethernet/!d' | fzf -e | awk '{print $1;}')
-        WIFI=$(nmcli dev | sed '/wifi/!d' | fzf -e | awk '{print $1;}')
-
-        # Input name and password
-        vared -p 'Hotspot name: ' -c NAME
-        vared -p 'Hotspot password: ' -c PASSWORD
-
-        # Run command
-        sudo create_ap $WIFI $ETHERNET $NAME $PASSWORD
-      '';
     };
-
-    initContent = ''
-      # Ctrl+delete
-      bindkey '^H' backward-delete-word
-
-      # Start UWSM
-      if uwsm check may-start > /dev/null && uwsm select; then
-        exec systemd-cat -t uwsm_start uwsm start default
-      fi
-
-      # This is needed so that trashy
-      # doesnt shit itself and die when I press Tab
-      customtrash() { command trash put "$@" }
-    '';
   };
 }

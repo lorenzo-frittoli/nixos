@@ -1,23 +1,22 @@
 #!/usr/bin/env zsh
 
-# Exit silently and immediately if any command fails
+# Exit immediately if any command fails
 set -e
 
-# 1. Silently validate the core environment variable
+# 1. Validate the core environment variable
 if [[ -z "$STUDY_DIR" ]]; then
+    echo "Error: STUDY_DIR environment variable is not set." >&2
     exit 1
 fi
 
 # 2. Assign parameters with intelligent defaults
-# $1: Subject name (Required)
-# $2: Template name (Defaults to "default")
-# $3: Destination directory (Defaults to current directory ".")
 SUBJECT_NAME="${1}"
 TEMPLATE_NAME="${2:-default}"
 DEST_DIR="${3:-.}"
 
-# 3. Fail silently if the user forgot the required subject name
+# 3. Fail if the user forgot the required subject name
 if [[ -z "$SUBJECT_NAME" ]]; then
+    echo "Error: Subject name (argument 1) is required." >&2
     exit 1
 fi
 
@@ -25,16 +24,18 @@ fi
 SOURCE_TEMPLATE_DIR="$STUDY_DIR/subject_templates/$TEMPLATE_NAME"
 TARGET_DIR="$DEST_DIR/$SUBJECT_NAME"
 
-# 5. Fail silently if template doesn't exist
+# 5. Fail if template doesn't exist
 if [[ ! -d "$SOURCE_TEMPLATE_DIR" ]]; then
+    echo "Error: Template '$TEMPLATE_NAME' not found in $STUDY_DIR/subject_templates/." >&2
     exit 1
 fi
 
-# 6. Fail silently to protect existing workspace from overrides
+# 6. Protect existing workspace from overrides
 if [[ -d "$TARGET_DIR" ]]; then
+    echo "Error: Target directory '$TARGET_DIR' already exists." >&2
     exit 1
 fi
 
-# 7. Execute the operations silently
+# 7. Execute the operations
 mkdir -p "$TARGET_DIR"
 cp -r "$SOURCE_TEMPLATE_DIR/"* "$TARGET_DIR/"
