@@ -2,6 +2,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
+    configType = "hyprlang"; # !WARN: DEPRECATED
     settings = {
       env = [
         # Hint Electron apps to use Wayland
@@ -109,7 +110,6 @@
       gesture = "3, horizontal, workspace";
 
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
       };
 
@@ -120,42 +120,38 @@
       };
 
       misc = {
-        vrr = 0; # Enable Variable Refresh Rate (0=off, 1=on, 2=fullscreen only)
+        vrr = 1; # Enable Variable Refresh Rate (0=off, 1=on, 2=fullscreen only)
         force_default_wallpaper = 0;
         disable_hyprland_logo = true;
       };
 
-      windowrulev2 = [
+      windowrule = [
         # Removes borders when a window is tiled (not floating) and the only one on the workspace
         # "bordersize 0, floating:0, onworkspace:w[t1]"
 
-        # Force specific utility and media apps to always start in floating mode
-        "float,class:(mpv)|(imv)|(showmethekey-gtk)"
-
-        # Positioning for 'showmethekey': places it at top-right, sets size, pins to all workspaces, and prevents taking focus
-        "move 990 60,size 900 170,pin,noinitialfocus,class:(showmethekey-gtk)"
-
-        # Visual cleanup for 'showmethekey': removes borders and prevents it from being focused by keyboard/mouse
-        "noborder,nofocus,class:(showmethekey-gtk)"
+        # Showmethekey and mpv ? stuff
+        # "float 1,class:(mpv)|(imv)|(showmethekey-gtk)"
+        # "move 990 60,size 900 170,pin 1,noinitialfocus,class:(showmethekey-gtk)"
+        # "noborder 1,nofocus,class:(showmethekey-gtk)"
 
         # Static workspace assignments: bind apps to specific numbered or special workspaces
-        "workspace special:chats,class:(ZapZap)"
-        "workspace special:chats,class:(signal)"
-        "workspace special:chats,class:(org.telegram.desktop)"
+        "workspace special:chats,match:class (ZapZap)"
+        "workspace special:chats,match:class (signal)"
+        "workspace special:chats,match:class (org.telegram.desktop)"
 
         # Global rule: Ignore 'maximize' requests from all windows to maintain tiling integrity
-        "suppressevent maximize, class:.*"
+        "suppress_event maximize, match:class .* 1"
 
         # Fix for ghost/empty XWayland windows that sometimes appear and steal focus
-        "nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+        "no_focus 1,match:class ^$,match:title ^$,match:xwayland 1,match:float 1,match:fullscreen 0,match:pin 0"
 
         # Compatibility hacks for xwaylandvideobridge: makes the helper window invisible and non-intrusive
-        "opacity 0.0 override, class:^(xwaylandvideobridge)$" # Fully transparent
-        "noanim, class:^(xwaylandvideobridge)$" # Disable animations
-        "noinitialfocus, class:^(xwaylandvideobridge)$" # Don't focus on launch
-        "maxsize 1 1, class:^(xwaylandvideobridge)$" # Shrink to 1x1 pixel
-        "noblur, class:^(xwaylandvideobridge)$" # Disable background blur
-        "nofocus, class:^(xwaylandvideobridge)$" # Completely ignore focus
+        "opacity 0.0 override, match:class ^(xwaylandvideobridge)$" # Fully transparent
+        "no_anim 1, match:class ^(xwaylandvideobridge)$" # Disable animations
+        "no_initial_focus 1, match:class ^(xwaylandvideobridge)$" # Don't focus on launch
+        "max_size 1 1, match:class ^(xwaylandvideobridge)$" # Shrink to 1x1 pixel
+        "no_blur 1, match:class ^(xwaylandvideobridge)$" # Disable background blur
+        "no_focus 1, match:class ^(xwaylandvideobridge)$" # Completely ignore focus
       ];
 
       workspace = [
