@@ -39,5 +39,7 @@
         bizarre_retry = 5;
       };
     };
+
+    shellWrapperName = "y";
   };
 }
