@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   # Fonts
   fonts.packages = with pkgs; [
     # --- Core Fonts ---
