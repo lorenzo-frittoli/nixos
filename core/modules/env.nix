@@ -8,4 +8,5 @@
     #   "${XDG_BIN_HOME}"
     # ];
   };
+  fonts.fontDir.enable = true;
 }

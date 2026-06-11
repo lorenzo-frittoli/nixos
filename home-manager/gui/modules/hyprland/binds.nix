@@ -23,7 +23,7 @@
       "$mainMod SHIFT, Q, exit,"
       "$mainMod,       B, exec, pkill -SIGUSR2 waybar"
       "$mainMod SHIFT, B, exec, pkill -SIGUSR1 waybar"
-      "$mainMod CTRL, Escape, exec, hyprlock --immediate"
+      "$mainMod CTRL, Escape, exec, hyprlock --grace 0"
 
       # Open programs
       "$mainMod,       E, exec, $menu --show drun"

@@ -39,6 +39,7 @@
 
     # --- Coding stuff ---
     cargo
+    cppcheck
     gcc
     gdb
     gemini-cli

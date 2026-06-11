@@ -13,17 +13,9 @@ in {
         bashls.enable = true;
         yamlls.enable = true;
 
-        # --- C++ (With your specific Tab settings) ---
+        # --- C++ ---
         clangd = {
           enable = true;
-          extraOptions = {
-            cmd = [
-              "clangd"
-              "--query-driver=${cppDriverPath}"
-              "--background-index"
-              "--fallback-style={BasedOnStyle: LLVM, UseTab: Always, IndentWidth: 4, TabWidth: 4}"
-            ];
-          };
         };
 
         # --- Rust ---

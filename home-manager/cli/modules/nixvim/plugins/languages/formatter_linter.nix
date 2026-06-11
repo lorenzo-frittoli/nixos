@@ -1,40 +1,14 @@
 {
   programs.nixvim.plugins = {
-    # 1. FORMATTING & DIAGNOSTICS BRIDGE
+    # 1. DIAGNOSTICS & CODE ACTIONS
     none-ls = {
       enable = true;
-      settings = {
-        cmd = ["bash -c nvim"];
-      };
       sources = {
-        code_actions = {
-          statix.enable = true; # Nix
-        };
+        code_actions.statix.enable = true; # Nix
         diagnostics = {
           statix.enable = true; # Nix
           deadnix.enable = true; # Nix
           pylint.enable = true; # Python
-        };
-        formatting = {
-          alejandra.enable = true; # Nix
-          stylua.enable = true; # Lua
-          shfmt.enable = true; # Shell
-
-          prettier = {
-            enable = true;
-            disableTsServerFormatter = true;
-            settings = {
-              extra_filetypes = ["vue" "json" "markdown"];
-            };
-          };
-
-          black = {
-            enable = true;
-            settings = ''{ extra_args = { "--fast" } }'';
-          };
-
-          # Typst Formatter (Modern, fast, and active)
-          typstyle.enable = true;
         };
       };
     };
@@ -48,28 +22,39 @@
         markdown = ["vale"];
         rust = ["clippy"];
         text = ["vale"];
-        # Typst is intentionally left out here to prevent 'tidy' from running
       };
     };
 
-    # 3. FORMAT ON SAVE CONTROLLER
-    lsp-format = {
+    # 3. MODERN FORMATTING & FORMAT-ON-SAVE
+    conform-nvim = {
       enable = true;
       settings = {
-        cpp = {
-          order = ["clangd"];
+        # This replaces lsp-format entirely and fixes the deprecation error
+        format_on_save = {
+          lsp_format = "fallback";
+          timeout_ms = 500;
         };
 
-        # Explicitly force Typst to use none-ls (null-ls) for typstyle
-        typst = {
-          order = ["null-ls"];
+        # Explicit formatters.
+        # C++ (clangd) and Rust (rust-analyzer) will automatically fall back to their LSPs.
+        formatters_by_ft = {
+          nix = ["alejandra"];
+          lua = ["stylua"];
+          python = ["black"];
+          sh = ["shfmt"];
+          vue = ["prettier"];
+          json = ["prettier"];
+          markdown = ["prettier"];
+          typst = ["typstyle"];
         };
 
-        python = {order = ["null-ls"];};
-        lua = {order = ["null-ls"];};
-        nix = {order = ["null-ls"];};
-        markdown = {order = ["null-ls"];};
-        json = {order = ["null-ls"];};
+        # Optional: Keep your specific black arguments
+        formatters = {
+          # Python
+          black = {
+            prepend_args = ["--fast"];
+          };
+        };
       };
     };
   };
