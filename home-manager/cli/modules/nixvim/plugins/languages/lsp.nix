@@ -1,17 +1,23 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   cppDriverPath = "${pkgs.gcc.cc}/bin/g++";
-in {
+in
+{
   programs.nixvim.plugins = {
     lsp = {
       enable = true;
       servers = {
         # --- Existing ---
-        html.enable = true;
         pyright.enable = true;
         marksman.enable = true;
         nil_ls.enable = true;
         bashls.enable = true;
         yamlls.enable = true;
+
+        # --- Web ---
+        html.enable = true;
+        cssls.enable = true;
+        ts_ls.enable = true;
 
         # --- C++ ---
         clangd = {

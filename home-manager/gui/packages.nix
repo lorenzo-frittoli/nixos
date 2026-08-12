@@ -2,7 +2,8 @@
   pkgs,
   pkgs-unstable,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     # --- Desktop apps ---
     anki
@@ -38,6 +39,7 @@
     zapzap
 
     # --- WM stuff ---
+    hyprsunset
     libnotify
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
@@ -47,13 +49,15 @@
       name = "inkscape-textext-fixed";
       paths = [
         (inkscape-with-extensions.override {
-          inkscapeExtensions = [inkscape-extensions.textext];
+          inkscapeExtensions = [ inkscape-extensions.textext ];
         })
       ];
-      nativeBuildInputs = [makeWrapper];
+      nativeBuildInputs = [ makeWrapper ];
       postBuild = ''
         wrapProgram $out/bin/inkscape \
-          --prefix PYTHONPATH : "${python3.withPackages (ps: with ps; [pygobject3])}/${python3.sitePackages}"
+          --prefix PYTHONPATH : "${
+            python3.withPackages (ps: with ps; [ pygobject3 ])
+          }/${python3.sitePackages}"
       '';
     })
   ];

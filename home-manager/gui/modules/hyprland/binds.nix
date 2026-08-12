@@ -105,6 +105,10 @@
       "$mainMod SHIFT, O, movetoworkspace, special:btop"
       "$mainMod,       T, togglespecialworkspace,  todo"
       "$mainMod SHIFT, T, movetoworkspace, special:todo"
+
+      # Night light
+      "$mainMod SHIFT, N, exec, hyprctl hyprsunset temperature 4000"
+      "$mainMod CTRL, N, exec, hyprctl hyprsunset identity"
     ];
 
     # Move/resize windows with mainMod + LMB/RMB and dragging

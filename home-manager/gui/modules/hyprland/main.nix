@@ -1,4 +1,4 @@
-{config, ...}: {
+{ config, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
@@ -30,6 +30,7 @@
         "waybar"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
+        "hyprsunset"
       ];
 
       general = {
@@ -104,7 +105,10 @@
 
       input = {
         kb_layout = "us";
-        kb_options = ["grp:caps_toggle" "ctrl:swapcaps"];
+        kb_options = [
+          "grp:caps_toggle"
+          "ctrl:swapcaps"
+        ];
       };
 
       gesture = "3, horizontal, workspace";
