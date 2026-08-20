@@ -1,4 +1,4 @@
-{config, ...}: {
+{ config, ... }: {
   programs.zsh = {
     shellAliases = {
       os-build = "nh os build && exec zsh";
@@ -25,6 +25,7 @@
       yz = "yazi";
       xo = "xdg-open";
       microfetch = "microfetch && echo";
+      nd = "nix develop -c $SHELL";
 
       rm = "echo 'use trash instead'";
       tsp = "customtrash";
