@@ -23,6 +23,7 @@
     mpv
     networkmanagerapplet
     networkmanager
+    kdePackages.okular
     kdePackages.plasma-nm
     obs-studio
     octaveFull
