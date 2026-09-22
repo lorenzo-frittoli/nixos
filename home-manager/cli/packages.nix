@@ -2,7 +2,8 @@
   pkgs,
   pkgs-unstable,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     # --- CLI utils ---
     p7zip
@@ -43,7 +44,13 @@
     gcc
     gdb
     gemini-cli
-    (python3.withPackages (ps: with ps; [pygobject3 tkinter]))
+    opencode
+    (python3.withPackages (
+      ps: with ps; [
+        pygobject3
+        tkinter
+      ]
+    ))
     rust-analyzer
     rustc
     typst
