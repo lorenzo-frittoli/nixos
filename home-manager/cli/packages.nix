@@ -44,7 +44,7 @@
     gcc
     gdb
     gemini-cli
-    opencode
+    pi-coding-agent
     (python3.withPackages (
       ps: with ps; [
         pygobject3
