@@ -1,10 +1,12 @@
-{ ... }: {
+{ self, ... }: {
   flake.nixosModules.calcolatoreConfiguration = { pkgs, ... }: {
-    imports = [ ./_hardware-configuration.nix ./_disko.nix ];
+    imports = [
+      ./_hardware-configuration.nix
+      ./_disko.nix
+      self.nixosModules.docker
+    ];
 
     networking.hostName = "calcolatore";
-
-    virtualisation.docker.enable = true;
 
     users.users.frittata = {
       isNormalUser = true;

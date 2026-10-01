@@ -24,6 +24,7 @@
 
     systemd.user.services.mpdris2 = {
       description = "MPRIS interface for MPD";
+      unitConfig.ConditionUser = "frittata";
       after = [ "mpd.service" ];
       wantedBy = [ "default.target" ];
       serviceConfig = {

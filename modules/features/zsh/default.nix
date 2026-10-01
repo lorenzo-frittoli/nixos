@@ -1,5 +1,12 @@
 { self, moduleWithSystem, ... }: {
-  flake.nixosModules.zsh = moduleWithSystem ({ self', pkgs, ... }: {
+  flake.nixosModules.zsh = moduleWithSystem ({ pkgs, ... }: {
+    imports = with self.nixosModules; [
+      bat
+      eza
+      zoxide
+      starship
+    ];
+
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -53,10 +60,6 @@
     users.defaultUserShell = pkgs.zsh;
 
     environment.systemPackages = [
-      self'.packages.starship
-      pkgs.zoxide
-      pkgs.eza
-      pkgs.bat
       (pkgs.runCommandLocal "zsh-scripts" { } ''
         mkdir -p $out/bin
         cp ${./scripts/create-subject} $out/bin/create-subject
