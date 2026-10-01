@@ -10,6 +10,13 @@
       hyprpaper
       hypridle
       hyprlock
+      kitty
+      waybar
+      wofi
+      swaync
+      zathura
+      yazi
+      btop
       session
     ];
 
