@@ -8,6 +8,7 @@
       gaming
       multimedia
       comms
+      desktopApps
       calcolatoreConfiguration
     ]);
   };
