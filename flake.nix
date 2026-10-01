@@ -1,7 +1,6 @@
 {
-  description = "System configuration based on https://github.com/Andrey0189/nixos-config-reborn";
-  # REMEMBER TO UPDATE ALL VERSIONS
-  # current version = 26.05;
+  description = "Dendritic NixOS configuration (no home-manager)";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -11,123 +10,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    home-manager = {
-      url = "github:nix-community/home-manager/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
 
-    stylix = {
-      url = "github:danth/stylix/release-26.05";
+    wrappers = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixvim = {
-      url = "github:nix-community/nixvim/nixos-26.05";
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixpkgs-unstable,
-    home-manager,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    homeStateVersion = "25.05";
-    user = "frittata";
-    targets = [
-      (import ./targets/calcolatore/properties.nix)
-    ];
-
-    # --- 1. DEFINE THE OVERLAY ---
-    # This creates a namespace "pkgs.unstable" that holds the unstable packages
-    overlay-unstable = final: prev: {
-      unstable = import nixpkgs-unstable {
-        system = system;
-        config.allowUnfree = true;
-        config.permittedInsecurePackages = ["electron-39.8.10"];
-      };
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.disko.flakeModule
+        (inputs.import-tree ./modules)
+      ];
     };
-
-    makeSystem = {
-      hostname,
-      stateVersion,
-      hasGui,
-    }:
-      nixpkgs.lib.nixosSystem {
-        system = system;
-        specialArgs = {
-          inherit
-            inputs
-            stateVersion
-            hostname
-            user
-            hasGui
-            ;
-        };
-
-        modules = [
-          (
-            {
-              config,
-              pkgs,
-              ...
-            }: {
-              # --- 2. REGISTER THE OVERLAY HERE ---
-              nixpkgs.overlays = [overlay-unstable];
-
-              nixpkgs.config.allowUnfree = true;
-              nixpkgs.config.permittedInsecurePackages = ["electron-39.8.10"];
-            }
-          )
-
-          ./targets/${hostname}/default.nix
-          inputs.disko.nixosModules.disko
-        ];
-      };
-  in {
-    nixosConfigurations =
-      nixpkgs.lib.foldl' (
-        configs: target:
-          configs
-          // {
-            "${target.hostname}" = makeSystem {
-              inherit (target) hostname hasGui;
-              stateVersion = homeStateVersion;
-            };
-          }
-      ) {}
-      targets;
-
-    homeConfigurations =
-      nixpkgs.lib.foldl' (
-        configs: target:
-          configs
-          // {
-            "${user}@${target.hostname}" = home-manager.lib.homeManagerConfiguration {
-              pkgs = nixpkgs.legacyPackages.${system};
-              extraSpecialArgs = {
-                inherit inputs homeStateVersion user;
-                hasGui = target.hasGui;
-              };
-
-              modules = [
-                (
-                  {
-                    config,
-                    pkgs,
-                    ...
-                  }: {
-                    nixpkgs.overlays = [overlay-unstable];
-                    nixpkgs.config.permittedInsecurePackages = ["electron-39.8.10"];
-                  }
-                )
-                ./home-manager/default.nix
-              ];
-            };
-          }
-      ) {}
-      targets;
-  };
 }

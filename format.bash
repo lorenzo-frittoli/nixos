@@ -1,28 +1,32 @@
-DISKO_CONFIG_FILE="./hosts/$1/disko-config.nix";
+#!/usr/bin/env bash
+# Format/partition a host's disks using its disko configuration.
+# Usage: ./format.bash <hostname>
+set -euo pipefail
 
-format() {
-	sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount $DISKO_CONFIG_FILE
-}
-
-# Check number of parameters
 if [ "$#" -ne 1 ]; then
-    echo "Please provide one and only one parameter, the hostname."
-	exit;
+  echo "Usage: $0 <hostname>"
+  exit 1
 fi
 
-# Check if parameter is valid
-if [ ! -f $DISKO_CONFIG_FILE ]; then
-    echo "File not found:"
-	echo "- Make sure your hostname is correct"
-	echo "- Make sure you are running the script from the root of the git repo"
-	exit;
+HOST="$1"
+DISKO_CONFIG="./modules/hosts/${HOST}/_disko.nix"
+
+if [ ! -f "$DISKO_CONFIG" ]; then
+  echo "File not found: $DISKO_CONFIG"
+  echo "- Check the hostname"
+  echo "- Run this from the repository root"
+  exit 1
 fi
 
-while true; do
-  read -p "Do you want to proceed? (y/n) " yn
-  case $yn in
-	[yY]*) format; break;;
-    [nN]*) echo "Exiting..."; exit;;
-    *) echo "Please answer y or n.";;
-  esac
-done   
+echo "This will DESTROY and reformat the disks of '${HOST}'."
+read -r -p "Do you want to proceed? (y/n) " yn
+case "$yn" in
+  [yY]*)
+    sudo nix --experimental-features "nix-command flakes" \
+      run github:nix-community/disko -- \
+      --mode destroy,format,mount "$DISKO_CONFIG"
+    ;;
+  *)
+    echo "Exiting..."
+    ;;
+esac

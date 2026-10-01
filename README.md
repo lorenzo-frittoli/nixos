@@ -1,77 +1,63 @@
-# My NixOS Config
+# Dendritic NixOS Config
 
-This config is mostly stolen from [here](https://github.com/Andrey0189/nixos-config-reborn).
+A [dendritic](https://github.com/mightyiam/dendritic) NixOS configuration built with
+[flake-parts](https://flake.parts), [import-tree](https://github.com/vic/import-tree)
+and [nix-wrapper-modules](https://github.com/BirdeeHub/nix-wrapper-modules).
 
-## Installation
+There is **no home-manager** and **no stylix**. Application configuration is baked
+into wrapped binaries, so `nix run .#<app>` gives you *your* configured app.
 
-To get started with this setup, follow these steps:
+## Structure
 
-1. **Install NixOS**: If you haven't already installed NixOS, follow the [NixOS Installation Guide](https://nixos.org/manual/nixos/stable/#sec-installation) for detailed instructions.
-2. **Clone the Repository**:
-
-	```bash
-    git clone https://github.com/lorenzo-frittoli/nixos
-    cd nixos
-    ```
-
-3. **Copy one of the hosts configuration to set up your own**:
-
-    ```bash
-    cd hosts
-    cp -r calcolatore <your_hostname>
-    cd <your_hostname>
-    ```
-
-4. **Edit `disko-config.nix` and `hardware-configuration.nix`**:
-    ```diff
-    {
-      disko.devices = {
-        disk = {
-          main = {
-            type = "disk";
-            # ⚠️ PASTE YOUR ID HERE ⚠️
-            # This prevents accidental formatting if drive letters change (e.g. sda -> sdb)
-    --      device = "/dev/disk/by-id/nvme-BC511_NVMe_SK_hynix_512GB_CY06T000310606K23"; 
-    ++      device = "/dev/disk/by-id/<your-main-disk-id>"; 
-    ...
-    ```
-
-5. **Format the drive**:
-Run this inside the top directory (where `format.bash` is located).
-```bash
-    ./format.bash <your_hostname>
+```
+modules/
+├── features/   # one self-contained app per folder: wrapped binary + its config
+├── attrs/      # groupings of features (development, creative, gaming, ...)
+├── system/     # plain NixOS modules, no binaries (core, audio, network, desktop, drivers)
+├── hosts/      # one folder per machine
+├── parts.nix   # flake-parts `systems` and perSystem pkgs
+└── _template.nix, _lib/   # helpers (underscore-prefixed => ignored by import-tree)
 ```
 
-6. **Edit `hosts/<your_hostname>/local-packages.nix` and `nixos/packages.nix` files if needed**:
+Every `modules/**/default.nix` is a flake-parts module. Features export both a
+`packages.<name>` (runnable via `nix run .#<name>`) and a `flake.nixosModules.<name>`
+that installs it system-wide. Non-module helper files must be prefixed with `_` so
+`import-tree` skips them.
 
-    ```bash
-    vim local-packages.nix
-    vim ../../nixos/packages.nix
-    ```
+## Hosts
 
-7. **Finally, edit the `flake.nix` file**:
+| Host | User | Description |
+|------|------|-------------|
+| `calcolatore` | `frittata` | Desktop (Hyprland, NVIDIA prime offload, GUI apps) |
+| `server` | `user01` | Minimal headless server (placeholder hardware config) |
 
-    ```diff
-    ...
-      outputs = { self, nixpkgs, home-manager, ... }@inputs: let
-        system = "x86_64-linux";
-    --  homeStateVersion = "24.11";
-    ++  homeStateVersion = "<your_home_manager_state_version>";
-    --  user = "frittata";
-    ++  user = "<your_username>";
-        hosts = [
-    --    { hostname = "calcolatore"; stateVersion = "24.05"; }
-    ++    { hostname = "<your_hostname>"; stateVersion = "<your_state_version>"; }
-        ];
-    ...
-    ```
+## Usage
 
-8. **Rebuilding**:
+```bash
+# Build / switch the desktop
+sudo nixos-rebuild switch --flake .#calcolatore
 
-    ```bash
-    cd nixos
-    git add .
-    nixos-rebuild switch --flake ./#<hostname>
-    # or nixos-install --flake ./#<hostname> if you are installing on a fresh system
-    home-manager switch
-    ```
+# Build the server
+sudo nixos-rebuild switch --flake .#server
+
+# Run a configured app without switching
+nix run .#kitty
+nix run .#waybar
+nix run .#neovim
+
+# Format a host's disks (destructive)
+./format.bash calcolatore
+```
+
+## Notes
+
+- Theming uses a plain palette in `modules/system/theme/_theme.nix`, imported by
+  both the wrappers and the NixOS modules. No external theme framework.
+- Wrapped apps: `kitty`, `waybar`, `zathura`, `yazi`, `starship`, `hyprlock`,
+  `wofi`, `swaync`, `rmpc`, `neovim`.
+- Hyprland/Hyprpaper/Hypridle configs are placed into `~/.config/hypr` via
+  `systemd-tmpfiles` (helper: `modules/_lib/userfile.nix`).
+- Neovim uses a plain Lua + lazy.nvim config in `modules/features/neovim/config`.
+- `modules/hosts/server/_hardware-configuration.nix` is a placeholder; replace it
+  with the real `nixos-generate-config` output for the server.
+- `modules/hosts/server/_disko.nix` contains a placeholder disk device.
