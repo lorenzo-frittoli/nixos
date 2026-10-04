@@ -17,6 +17,7 @@
       zathura
       yazi
       btop
+      chats
       session
     ];
 
