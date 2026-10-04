@@ -1,10 +1,33 @@
 local map = vim.keymap.set
+local o = { silent = true }
 
-map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
-map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
-map("n", "<Esc>", "<cmd>nohlsearch<cr>")
-map("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus left" })
-map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus right" })
-map("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus down" })
-map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus up" })
-map("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete buffer" })
+-- Harpoon
+map("n", "<leader>a", "<cmd>lua require('harpoon'):list():add()<cr>", o)
+map("n", "<C-e>", "<cmd>lua require('harpoon').ui:toggle_quick_menu(require('harpoon'):list())<cr>", o)
+map("n", "<C-h>", "<cmd>lua require('harpoon'):list():select(1)<cr>", o)
+map("n", "<C-j>", "<cmd>lua require('harpoon'):list():select(2)<cr>", o)
+map("n", "<C-k>", "<cmd>lua require('harpoon'):list():select(3)<cr>", o)
+map("n", "<C-l>", "<cmd>lua require('harpoon'):list():select(4)<cr>", o)
+
+-- File explorer
+map("n", "<leader>pv", ":Ex<Enter>", o)
+
+-- Typst preview toggle
+map("n", "<leader>tp", ":lua if vim.g.typst_preview_active then vim.cmd('TypstPreviewStop'); vim.g.typst_preview_active = false else vim.cmd('TypstPreview'); vim.g.typst_preview_active = true end<CR>", o)
+
+-- Move selected lines
+map("v", "<C-j>", ":m +1<CR>", o)
+map("v", "<C-k>", ":m -2<CR>", o)
+
+-- Cursor/scroll fixes
+map("n", "J", "mzJ`z", o)
+map("n", "<C-d>", "<C-d>zz", o)
+map("n", "<C-u>", "<C-u>zz", o)
+map("n", "n", "nzzzv", o)
+map("n", "N", "Nzzzv", o)
+
+-- Clipboard-preserving edits
+map("x", "<leader>p", "\"_dP", o)
+map({ "n", "v" }, "Y", "\"+y", o)
+map({ "n", "v" }, "P", "\"+p", o)
+map({ "n", "v" }, "<leader>d", "\"_d", o)

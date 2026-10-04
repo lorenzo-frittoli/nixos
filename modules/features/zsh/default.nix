@@ -43,6 +43,10 @@
         cat = "bat";
       };
 
+      promptInit = ''
+        eval "$(starship init zsh)"
+      '';
+
       interactiveShellInit = ''
         export STUDY_DIR="$HOME/study"
 
@@ -51,7 +55,6 @@
 
         typeset -U path
 
-        eval "$(starship init zsh)"
         eval "$(zoxide init zsh)"
         eval "$(direnv hook zsh 2>/dev/null)" || true
       '';
