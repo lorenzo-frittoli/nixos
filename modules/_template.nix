@@ -1,5 +1,6 @@
-# TEMPLATE (underscore-prefixed so import-tree skips it).. Copy this directory, rename it, and replace
-# `name` with the feature name. Exposes:
+# TEMPLATE (underscore-prefixed, so import-tree skips it).
+# Copy this file to modules/features/<name>/default.nix and replace `name`.
+# Exposes:
 #   - flake.nixosModules.<name>  : installs the wrapped binary system-wide
 #   - packages.<name>            : the wrapped binary, runnable via `nix run .#<name>`
 {
