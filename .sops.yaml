@@ -1,0 +1,22 @@
+# SOPS configuration for nixos secrets.
+#
+# See secrets/README.md for the full workflow.
+#
+# The `&admin` key is your personal age key (stored outside this repo at
+# ~/.config/sops/age/keys.txt). It is used for editing secrets.
+keys:
+  - &admin age1yzgejyyk5ff5g40xzjj3jgz3mt00hs93h0d7mkt4m5q3ttj73d0qd6avty
+
+  # After each host's first boot, derive its age recipient from its SSH host
+  # key and add it here:
+  #   sudo ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
+  # - &calcolatore age1...
+  # - &server age1...
+
+creation_rules:
+  - path_regex: secrets/.*\.ya?ml$
+    key_groups:
+      - age:
+          - *admin
+          # - *calcolatore
+          # - *server

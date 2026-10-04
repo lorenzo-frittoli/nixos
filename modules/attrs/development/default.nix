@@ -14,6 +14,8 @@
       gdb
       cppcheck
       gh
+      sops
+      ssh-to-age
       fzf
       ripgrep
       gemini-cli

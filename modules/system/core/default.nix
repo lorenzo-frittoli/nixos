@@ -7,6 +7,7 @@
       hardware
       locale
       env
+      secrets
     ];
 
     environment.systemPackages = with pkgs; [
