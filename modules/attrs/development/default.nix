@@ -18,7 +18,6 @@
       ssh-to-age
       fzf
       ripgrep
-      gemini-cli
       pi-coding-agent
       typst
       typstyle

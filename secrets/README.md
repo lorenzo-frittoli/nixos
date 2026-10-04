@@ -5,76 +5,92 @@ this directory are safe to commit.
 
 ## How decryption works
 
-Each host decrypts using its **SSH ed25519 host key** (converted to an age
-identity internally). `services.openssh.generateHostKeys = true` is set in
-`modules/system/secrets`, so the key exists on every host. Secrets you want a
-host to read must be encrypted to that host's age recipient.
+Each host decrypts using an **age key file** at `/var/lib/sops-nix/key.txt`
+(configured in `modules/system/secrets`). This is a copy of your personal age
+key, so the same key works on every host. (An alternative using per-host SSH
+host keys is described at the bottom.)
 
-## Bootstrap
+## Bootstrap (do this before switching on a new host)
 
-1. **Your editing key** (already generated on this machine at
-   `~/.config/sops/age/keys.txt`). Public key is in `.sops.yaml` as `&admin`.
-   To recreate: `age-keygen -o ~/.config/sops/age/keys.txt`.
+1. **Your editing key** already exists on this machine at
+   `~/.config/sops/age/keys.txt`. Its public key is `&admin` in `.sops.yaml`.
+   Back it up. To recreate it: `age-keygen -o ~/.config/sops/age/keys.txt`.
 
-2. **Host recipients** — on each host after its first boot:
+2. **Install the key on the host** (run with sudo):
 
    ```bash
-   sudo ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub
+   sudo install -d -m 700 /var/lib/sops-nix
+   sudo install -m 600 ~/.config/sops/age/keys.txt /var/lib/sops-nix/key.txt
    ```
 
-   Add the printed `age1...` to `.sops.yaml` (`&calcolatore` / `&server`) and
-   remove the matching `#` before it in the `creation_rules` list.
+   On a *different* machine, copy the key over first, e.g.
+   `scp ~/.config/sops/age/keys.txt host:/tmp/ && ssh host 'sudo install -d -m700 /var/lib/sops-nix && sudo install -m600 /tmp/keys.txt /var/lib/sops-nix/key.txt && rm /tmp/keys.txt'`.
 
-3. **Create / edit a secrets file**:
+   If this file is missing, `nixos-rebuild switch` fails at activation (build
+   still succeeds).
+
+3. **Edit secrets** (sops is in the development attr):
 
    ```bash
    sops secrets/calcolatore.yaml
    ```
 
-   Add keys, save, and commit the encrypted file.
+   Fill in the values, save, and commit the encrypted file.
 
-4. **Re-key existing files after changing recipients**:
+## Current secrets
 
-   ```bash
-   sops updatekeys secrets/calcolatore.yaml
-   ```
+`secrets/calcolatore.yaml`:
 
-## Wiring secrets into the config
+| Key | Consumed as | Wiring |
+|---|---|---|
+| `gh_token` | `GH_TOKEN` | `sops.templates."frittata-env"` → sourced by zsh |
+| `deepseek_api_key` | `DEEPSEEK_API_KEY` | same |
 
-Define the secret and reference its activation path. Examples:
+The rendered env file is `/run/secrets/rendered/frittata-env`, owned by
+`frittata`, and is sourced from `programs.zsh.interactiveShellInit` (defined in
+`modules/hosts/calcolatore/configuration.nix`). `pi` picks up
+`DEEPSEEK_API_KEY`, and `gh` picks up `GH_TOKEN`.
+
+To add another secret:
 
 ```nix
-# modules/hosts/<host>/configuration.nix
+sops.secrets."my_token".owner = "frittata";
+# then reference ${config.sops.placeholder."my_token"} in a sops.templates content
+```
+
+For a secret needed during user creation (e.g. a password hash), use
+`neededForUsers` and a `*File` option:
+
+```nix
 sops.secrets."user01/password".neededForUsers = true;
 users.users.user01.hashedPasswordFile = config.sops.secrets."user01/password".path;
-
-sops.secrets."gemini-api-key".owner = "frittata";
 ```
 
-For API keys / env vars, render a file and source it (see `sops.templates`):
+Generate a hash with: `mkpasswd -m sha-512` (from `pkgs.mkpasswd`).
 
-```nix
-sops.secrets."gemini-api-key".owner = "frittata";
-sops.templates."frittata-env".content = ''
-  export GEMINI_API_KEY=${config.sops.placeholder."gemini-api-key"}
-'';
-# -> config.sops.templates."frittata-env".path, source it from programs.zsh
-```
-
-## Inventory of secret candidates in this config
+## Inventory of remaining secret candidates
 
 | Candidate | Where | Suggested wiring |
 |---|---|---|
 | `server` `user01` password | `modules/hosts/server/configuration.nix` (`initialPassword = "qwer"`) | `hashedPasswordFile` |
-| `frittata` password | `modules/hosts/calcolatore/configuration.nix` (`sudo` requires a password, but none is set) | `hashedPasswordFile` |
-| `GEMINI_API_KEY` | `gemini-cli` (development attr) | `sops.templates` → zsh env |
-| `pi-coding-agent` API key(s) | `pi-coding-agent` (development attr) | `sops.templates` → zsh env |
-| GitHub token | `gh` (development attr) | `sops.templates` → `GH_TOKEN`/`GITHUB_TOKEN` |
-| Future server service secrets | services you add to `server` | `sops.secrets` + `*File` options |
+| `frittata` password | `modules/hosts/calcolatore/configuration.nix` (sudo requires a password, but none is set) | `hashedPasswordFile` |
+| Future server service secrets | services you add to `server` | `sops.secrets` + the module's `*File` option |
 
-Not secrets (do not manage here): SSH **authorized** keys (public), the
-host's own SSH host keys (generated locally), Wi-Fi passwords (NetworkManager
-keyring), app session data (Telegram/Signal/Brave profiles).
+Done already: `gh_token` (GitHub CLI) and `deepseek_api_key` (`pi`).
 
-The `hotspot` zsh script prompts for its password interactively; it is not
-stored and does not need sops.
+Not secrets (do not manage here): SSH **authorized** keys (public), the host's
+own SSH host keys (generated locally), Wi-Fi passwords (NetworkManager
+keyring), app session data (Telegram/Signal/Brave profiles). The `hotspot` zsh
+script prompts for its password interactively and stores nothing.
+
+## Alternative: per-host SSH host keys
+
+Instead of a copied key file, each host can decrypt with its own SSH host key.
+Remove `sops.age.keyFile` from `modules/system/secrets`, then on each host:
+
+```bash
+sudo ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub   # add to .sops.yaml
+sops updatekeys secrets/<host>.yaml
+```
+
+This gives per-host separation at the cost of more setup.

@@ -1,5 +1,5 @@
 { self, ... }: {
-  flake.nixosModules.calcolatoreConfiguration = { pkgs, ... }: {
+  flake.nixosModules.calcolatoreConfiguration = { pkgs, config, ... }: {
     imports = [
       ./_hardware-configuration.nix
       ./_disko.nix
@@ -15,6 +15,25 @@
     };
 
     security.sudo.wheelNeedsPassword = true;
+
+    # --- sops-managed user secrets -------------------------------------------
+    sops.defaultSopsFile = ../../../secrets/calcolatore.yaml;
+    sops.secrets."gh_token".owner = "frittata";
+    sops.secrets."deepseek_api_key".owner = "frittata";
+
+    sops.templates."frittata-env" = {
+      owner = "frittata";
+      content = ''
+        export GH_TOKEN=${config.sops.placeholder."gh_token"}
+        export DEEPSEEK_API_KEY=${config.sops.placeholder."deepseek_api_key"}
+      '';
+    };
+
+    programs.zsh.interactiveShellInit = ''
+      if [ -r ${config.sops.templates."frittata-env".path} ]; then
+        . ${config.sops.templates."frittata-env".path}
+      fi
+    '';
 
     environment.systemPackages = with pkgs; [
       cliphist
