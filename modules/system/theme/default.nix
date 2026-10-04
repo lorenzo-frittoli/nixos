@@ -16,10 +16,15 @@
     };
 
     config = {
-      environment.systemPackages = [ pkgs.vanilla-dmz ];
+      environment.systemPackages = with pkgs; [
+        vanilla-dmz
+        adwaita-icon-theme
+        papirus-icon-theme
+      ];
       environment.sessionVariables = {
         XCURSOR_THEME = "DMZ-Black";
         XCURSOR_SIZE = "24";
+        GTK_THEME = "Adwaita:dark";
       };
 
       qt = {

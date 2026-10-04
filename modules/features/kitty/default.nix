@@ -17,10 +17,10 @@ in {
       settings = {
         background_blur = 5;
         window_padding_width = 20;
-        background_opacity = "0.9";
         confirm_os_window_close = 0;
         enable_audio_bell = false;
-        cursor_trail = 1;
+        font_family = "JetBrains Mono";
+        font_size = 13;
       };
       keybindings = {
         "ctrl+backspace" = "send_text all \\x17";
