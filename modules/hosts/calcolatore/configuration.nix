@@ -10,6 +10,7 @@
 
     users.users.frittata = {
       isNormalUser = true;
+      uid = 1000;
       extraGroups = [ "wheel" "networkmanager" "dialout" "docker" "video" "audio" "input" ];
       shell = pkgs.zsh;
     };

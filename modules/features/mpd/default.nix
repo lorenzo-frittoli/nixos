@@ -1,5 +1,11 @@
 { ... }: {
-  flake.nixosModules.mpd = { pkgs, ... }: {
+  flake.nixosModules.mpd = { pkgs, config, ... }: let
+    # mpd runs as a *system* service but must reach the user's PipeWire socket
+    # at /run/user/<uid>/pipewire-0, so give it the runtime dir and order it
+    # after logind creates that directory.
+    uid = config.users.users.frittata.uid;
+    runtimeDir = "/run/user/${toString uid}";
+  in {
     services.mpd = {
       enable = true;
       user = "frittata";
@@ -20,6 +26,14 @@
           }
         ];
       };
+    };
+
+    systemd.services.mpd = {
+      environment = {
+        XDG_RUNTIME_DIR = runtimeDir;
+        PIPEWIRE_RUNTIME_DIR = runtimeDir;
+      };
+      after = [ "user-runtime-dir@${toString uid}.service" ];
     };
 
     systemd.user.services.mpdris2 = {
