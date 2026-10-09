@@ -8,6 +8,8 @@ under `## [Unreleased]`.
 
 ### Added
 
+- `modules/system/tailscale`: Tailscale module (tailnet interface trusted,
+  WireGuard UDP port allowed); wired into `server` and `calcolatore`.
 - `modules/features/pi`: declarative wrapper and managed config for the
   [pi](https://pi.dev) coding harness — settings, a theme generated from the
   shared Tokyo Night palette, prompt templates, and skills.
@@ -20,3 +22,9 @@ under `## [Unreleased]`.
   `repo-documentation`; prompt templates `/verify`, `/feature`, `/secret`,
   `/eval`, `/review`, and `/document`.
 - `CHANGELOG.md`.
+
+### Changed
+
+- `server`: SSH is now key-only — password authentication disabled, `user01`
+  authenticates with an `authorizedKeys` entry, and the `initialPassword`
+  placeholder was removed.

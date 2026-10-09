@@ -75,9 +75,10 @@ adds loose packages (e.g. `development`, `creative`, `gaming`). Hosts pick a set
 of attrs.
 
 **System** — plain NixOS config in `modules/system/...`, with no feature packages:
-`core` (boot, nix, locale, hardware), `audio`, `network`, `fonts`, `theme`,
-`docker`, `nh`, `drivers/nvidia`, `secrets`, and `desktop` (which composes the
-window-manager stack). Nothing here is imported unless a host asks for it.
+`core` (boot, nix, locale, hardware), `audio`, `network`, `tailscale`, `fonts`,
+`theme`, `docker`, `nh`, `drivers/nvidia`, `secrets`, and `desktop` (which
+composes the window-manager stack). Nothing here is imported unless a host asks
+for it.
 
 A host composes all three:
 
@@ -95,7 +96,7 @@ flake.nixosConfigurations.calcolatore = inputs.nixpkgs.lib.nixosSystem {
 | Host | User | Profile |
 |------|------|---------|
 | `calcolatore` | `frittata` | Hyprland (UWSM, started by greetd), NVIDIA PRIME offload, desktop attrs |
-| `server` | `user01` | `core` + `network` + openssh; no desktop |
+| `server` | `user01` | `core` + `network` + `tailscale` + key-only OpenSSH; no desktop |
 
 Each `modules/hosts/<host>/` holds:
 
