@@ -25,6 +25,8 @@ under `## [Unreleased]`.
 
 ### Changed
 
+- `server`: disk device and hardware configuration are now real (from
+  `nixos-generate-config`), replacing the placeholders.
 - `server`: SSH is now key-only — password authentication disabled, `user01`
   authenticates with an `authorizedKeys` entry, and the `initialPassword`
   placeholder was removed.

@@ -3,9 +3,9 @@
     disk = {
       main = {
         type = "disk";
-        # ⚠️ PASTE YOUR ID HERE ⚠️
-        # This prevents accidental formatting if drive letters change (e.g. sda -> sdb)
-        device = "ata-Samsung_SSD_870_QVO_1TB_S5SVNF0R257196E"; 
+        # Stable by-id path; prevents accidental formatting if drive letters
+        # change (e.g. sda -> sdb).
+        device = "/dev/disk/by-id/ata-Samsung_SSD_870_QVO_1TB_S5SVNF0R257196E"; 
         
         content = {
           type = "gpt";

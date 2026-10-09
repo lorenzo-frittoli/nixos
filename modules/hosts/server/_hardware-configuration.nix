@@ -1,11 +1,9 @@
-# PLACEHOLDER - replace with the output of `nixos-generate-config` on the server.
+# Generated from `nixos-generate-config` on the server.
 # fileSystems/swapDevices are provided by the disko configuration.
-{
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+{ config, lib, pkgs, modulesPath, ... }: {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
