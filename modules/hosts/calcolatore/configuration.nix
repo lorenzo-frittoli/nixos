@@ -4,6 +4,8 @@
       ./_hardware-configuration.nix
       ./_disko.nix
       self.nixosModules.docker
+      self.nixosModules.printing
+      self.nixosModules.tailscale
     ];
 
     networking.hostName = "calcolatore";

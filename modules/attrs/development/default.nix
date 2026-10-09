@@ -5,6 +5,7 @@
       neovim
       zsh
       nh
+      pi
     ];
     environment.systemPackages = with pkgs; [
       cargo
@@ -18,9 +19,10 @@
       ssh-to-age
       fzf
       ripgrep
-      pi-coding-agent
       typst
       typstyle
+      tinymist
+      websocat
       vale
       (python3.withPackages (ps: with ps; [ pygobject3 tkinter ]))
     ];

@@ -3,6 +3,7 @@
     modules = [ inputs.disko.nixosModules.disko ] ++ (with self.nixosModules; [
       core
       network
+      tailscale
       serverConfiguration
     ]);
   };

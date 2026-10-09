@@ -30,7 +30,25 @@ return {
   { "sindrets/diffview.nvim", cmd = { "DiffviewOpen", "DiffviewFileHistory" } },
 
   -- Typst
-  { "chomosuke/typst-preview.nvim", ft = "typst", opts = {} },
+  {
+    "chomosuke/typst-preview.nvim",
+    ft = "typst",
+    opts = {
+      -- Use the Nix-provided binaries instead of letting the plugin download
+      -- prebuilt ones, which do not run on NixOS.
+      dependencies_bin = {
+        tinymist = "tinymist",
+        websocat = "websocat",
+      },
+      -- Open the preview in a dedicated Brave profile/app window. The nvim
+      -- wrapper exports XDG_CONFIG_HOME=<read-only nvim store> to every child;
+      -- Brave's crashpad can't write there and dies with a SIGTRAP, so unset
+      -- it for the browser only.
+      open_cmd = 'env -u XDG_CONFIG_HOME brave --app=%s --user-data-dir="'
+        .. vim.fn.expand("~/.cache/typst-preview/brave")
+        .. '"',
+    },
+  },
 
   -- Telescope
   {

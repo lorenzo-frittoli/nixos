@@ -35,6 +35,8 @@ modules/
 secrets/                      sops-encrypted files and their docs
 static/                       images referenced by config (wallpaper)
 format.bash                   format a host's disks using its disko config
+CHANGELOG.md                  notable changes (see modules/features/pi for the
+                              auto-documentation that maintains it)
 ```
 
 `import-tree` imports every `**/*.nix` under `modules/` as a flake-parts module.

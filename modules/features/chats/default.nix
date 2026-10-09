@@ -31,7 +31,7 @@
         cat > $out/bin/launch-messengers <<'EOF'
         #!${pkgs.runtimeShell}
         zapzap &
-        telegram-desktop &
+        Telegram &
         signal-desktop &
         EOF
         chmod +x $out/bin/launch-messengers
